@@ -1,7 +1,10 @@
+import { useState } from "react";
 import BlueButton from "../buttons/blue-button/BlueButton";
 import PopUser from "../popups/pop-user/PopUser";
 
 const Header = () => {
+  const [openPopUser, setOpenPopUser] = useState(false);
+
   return (
     <header className="header">
       <div className="container">
@@ -24,9 +27,20 @@ const Header = () => {
             >
               Создать новую задачу
             </BlueButton>
-            <a href="#user-set-target" className="header__user _hover02">
+            {openPopUser && <PopUser openPopUser={openPopUser} />}
+            <a
+              href="#"
+              onClick={() => {
+                setOpenPopUser(!openPopUser);
+              }}
+              className="header__user _hover02"
+            >
               Ivan Ivanov
             </a>
+
+            {/* <a href="#user-set-target" className="header__user _hover02">
+              Ivan Ivanov
+            </a> */}
             <PopUser />
           </nav>
         </div>

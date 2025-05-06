@@ -4,25 +4,29 @@ import PopBrowse from "./components/popups/pop-browse/PopBrowse";
 import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 import "./App.css";
+import { useEffect, useState } from "react";
+import LoadingText from "./components/loading/LoadingText";
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
 
   return (
     <>
       <div className="wrapper">
         {/* pop-up start */}
 
-        <PopExit />
-
-        <PopNewCard />
-
-        <PopBrowse />
-
         {/* pop-up end */}
-
         <Header />
-        <Main />
+        <PopExit />
+        <PopNewCard />
+        <PopBrowse />
+        {loading ? <LoadingText /> : <Main />}
       </div>
 
       <script src="js/script.js"></script>

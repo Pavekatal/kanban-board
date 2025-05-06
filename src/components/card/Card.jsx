@@ -1,22 +1,18 @@
-import GreenTheme from "../themes/green-theme/GreenTheme";
-import OrangeTheme from "../themes/orange-theme/OrangeTheme";
-import PurpleTheme from "../themes/purple-theme/PurpleTheme";
+const Card = ({ item }) => {
+  let themeCategory;
 
-const Card = ({ category, title }) => {
-  let ThemeComponet;
-
-  switch (category) {
-    case "web-design":
-      ThemeComponet = OrangeTheme;
+  switch (item.topic) {
+    case "Web Design":
+      themeCategory = "_orange";
       break;
-    case "research":
-      ThemeComponet = GreenTheme;
+    case "Research":
+      themeCategory = "_green";
       break;
-    case "copywriting":
-      ThemeComponet = PurpleTheme;
+    case "Copywriting":
+      themeCategory = "_purple";
       break;
     default:
-      ThemeComponet = () => <div>Категория не определена</div>;
+      themeCategory = () => "";
       break;
   }
 
@@ -24,7 +20,9 @@ const Card = ({ category, title }) => {
     <div className="cards__item">
       <div className="cards__card card">
         <div className="card__group">
-          <ThemeComponet className="card__theme" />
+          <div className={`card__theme ${themeCategory}`}>
+            <p className={`${themeCategory}`}>{item.topic}</p>
+          </div>
           <a href="#popBrowse" target="_self">
             <div className="card__btn">
               <div></div>
@@ -35,7 +33,7 @@ const Card = ({ category, title }) => {
         </div>
         <div className="card__content">
           <a href="" target="_blank">
-            <h3 className="card__title">{title}</h3>
+            <h3 className="card__title">{item.title}</h3>
           </a>
           <div className="card__date">
             <svg
@@ -66,7 +64,7 @@ const Card = ({ category, title }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>30.10.23</p>
+            <p>{item.date}</p>
           </div>
         </div>
       </div>

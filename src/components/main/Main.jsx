@@ -2,12 +2,23 @@ import Column from "../column/Column";
 import Card from "../card/Card";
 
 const Main = () => {
+  const columnTitles = [
+    "Без статуса",
+    "Нужно сделать",
+    "В работе",
+    "Тестирование",
+    "Готово",
+  ];
+
   return (
     <main className="main">
       <div className="container">
         <div className="main__block">
           <div className="main__content">
-            <Column title="Без статуса">
+            {columnTitles.map((title, index) => (
+              <Column key={index} title={title} />
+            ))}
+            {/* <Column title="Без статуса">
               <Card category="web-design" title="Название задачи" />
               <Card category="research" title="Название задачи" />
               <Card category="web-design" title="Название задачи" />
@@ -27,7 +38,7 @@ const Main = () => {
             </Column>
             <Column title="Готово">
               <Card category="research" title="Название задачи" />
-            </Column>
+            </Column> */}
           </div>
         </div>
       </div>

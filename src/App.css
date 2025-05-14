@@ -809,19 +809,19 @@ body {
   z-index: 2;
 }
 
-.main {
+/* .main {
   width: 100%;
   background-color: #eaeef6;
-}
-.main__block {
+} */
+/* .main__block {
   width: 100%;
   margin: 0 auto;
   padding: 25px 0 49px;
-}
-.main__content {
+} */
+/* .main__content {
   width: 100%;
   display: flex;
-}
+} */
 /* .main__column {
   width: 20%;
   margin: 0 auto;
@@ -942,14 +942,14 @@ body {
 }
 
 @media screen and (max-width: 1200px) {
-  .main__block {
+  /* .main__block {
     width: 100%;
     margin: 0 auto;
     padding: 40px 0 64px;
-  }
-  .main__content {
+  } */
+  /* .main__content {
     display: block;
-  }
+  } */
   /* .main__column {
     width: 100%;
     margin: 0 auto;
@@ -1032,11 +1032,11 @@ body {
   }
 }
 @media screen and (max-width: 495px) {
-  .container {
+  /* .container {
     width: 100%;
     padding: 0 16px;
-  }
-  .header__btn-main-new {
+  } */
+  /* .header__btn-main-new {
     z-index: 3;
     position: fixed;
     left: 16px;
@@ -1046,7 +1046,7 @@ body {
     height: 40px;
     border-radius: 4px;
     margin-right: 0;
-  }
+  } */
   .pop-new-card__container {
     padding: 0;
     justify-content: flex-start;

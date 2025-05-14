@@ -5,42 +5,6 @@
   /* text-align: center; */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -95,18 +59,18 @@ body {
   background-color: #f1f1f1;
 }
 
-.container {
+/* .container {
   max-width: 1260px;
   width: 100%;
   margin: 0 auto;
   padding: 0 30px;
-}
+} */
 
 ._hover01:hover {
   background-color: #33399b;
 }
 
-._hover02:hover,
+/* ._hover02:hover,
 .header__user:hover {
   color: #33399b;
 }
@@ -114,7 +78,7 @@ body {
 .header__user:hover::after {
   border-left-color: #33399b;
   border-bottom-color: #33399b;
-}
+} */
 
 ._hover03:hover {
   background-color: #33399b;
@@ -761,16 +725,17 @@ body {
   display: none;
 }
 
-._dark {
+/* ._dark {
   display: none;
-}
+} */
 
-.header {
+/* .header {
   width: 100%;
   margin: 0 auto;
   background-color: #ffffff;
-}
-.header__block {
+} */
+
+/* .header__block {
   height: 70px;
   display: flex;
   flex-wrap: nowrap;
@@ -780,18 +745,18 @@ body {
   top: 0;
   left: 0;
   padding: 0 10px;
-}
-.header__logo img {
+} */
+/* .header__logo img {
   width: 85px;
-}
-.header__nav {
+} */
+/* .header__nav {
   max-width: 290px;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.header__btn-main-new {
+} */
+/* .header__btn-main-new {
   width: 178px;
   height: 30px;
   border-radius: 4px;
@@ -805,8 +770,8 @@ body {
 }
 .header__btn-main-new a {
   color: #ffffff;
-}
-.header__user {
+} */
+/* .header__user {
   height: 20px;
   display: flex;
   flex-wrap: nowrap;
@@ -827,7 +792,7 @@ body {
   transform: rotate(-45deg);
   margin: -6px 0 0 5px;
   padding: 0;
-}
+} */
 .header__pop-user-set {
   display: none;
   position: absolute;

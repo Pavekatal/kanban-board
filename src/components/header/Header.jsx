@@ -1,15 +1,22 @@
 import { useState } from "react";
 import BlueButton from "../buttons/blue-button/BlueButton";
 import PopUser from "../popups/pop-user/PopUser";
+import Logo from "../logo/Logo";
+import { SHeader } from "./SHeader.styled";
+import { Container } from "./Container.styled";
+import { HeaderBlock } from "./HeaderBlock.styled";
+import { HeaderNav } from "./HeaderNav.styled";
+import { HeaderUser } from "./HeaderUser.styled";
 
 const Header = () => {
   const [openPopUser, setOpenPopUser] = useState(false);
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
+    <SHeader>
+      <Container>
+        <HeaderBlock>
+          <Logo />
+          {/* <div className="header__logo _show _light">
             <a href="" target="_self">
               <img src="images/logo.png" alt="logo"></img>
             </a>
@@ -18,34 +25,29 @@ const Header = () => {
             <a href="" target="_self">
               <img src="images/logo_dark.png" alt="logo"></img>
             </a>
-          </div>
-          <nav className="header__nav">
-            <BlueButton
-              className="header__btn-main-new"
-              id="btnMainNew"
-              href="#popNewCard"
-            >
+          </div> */}
+          <HeaderNav>
+            <BlueButton id="btnMainNew" href="#popNewCard">
               Создать новую задачу
             </BlueButton>
             {openPopUser && <PopUser openPopUser={openPopUser} />}
-            <a
+            <HeaderUser
               href="#"
               onClick={() => {
                 setOpenPopUser(!openPopUser);
               }}
-              className="header__user _hover02"
+              $hover02={true}
             >
               Ivan Ivanov
-            </a>
+            </HeaderUser>
 
             {/* <a href="#user-set-target" className="header__user _hover02">
               Ivan Ivanov
             </a> */}
-            <PopUser />
-          </nav>
-        </div>
-      </div>
-    </header>
+          </HeaderNav>
+        </HeaderBlock>
+      </Container>
+    </SHeader>
   );
 };
 

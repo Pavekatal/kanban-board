@@ -1,8 +1,11 @@
+import { LoadingContent } from "./LoadingContent.styled";
+import { SLoadingText } from "./SLoadingText.styled";
+
 const LoadingText = () => {
   return (
-    <div className="loading__content">
-      <h2 className="loading__text">Подождите, данные загружаются...</h2>
-    </div>
+    <LoadingContent>
+      <SLoadingText>Подождите, данные загружаются...</SLoadingText>
+    </LoadingContent>
   );
 };
 

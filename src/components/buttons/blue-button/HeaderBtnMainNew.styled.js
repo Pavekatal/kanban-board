@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const HeaderBtnMainNew = styled.button`
   width: 178px;
@@ -15,6 +15,14 @@ export const HeaderBtnMainNew = styled.button`
   a {
     color: #ffffff;
   }
+
+  ${(props) =>
+    props.$hover01 &&
+    css`
+      &:hover {
+        background-color: #33399b;
+      }
+    `}
 
   @media screen and (max-width: 495px) {
     z-index: 3;

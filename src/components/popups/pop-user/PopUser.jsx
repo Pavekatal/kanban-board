@@ -1,8 +1,12 @@
 import WhiteButton from "../../buttons/white-button/WhiteButton";
 
-const PopUser = () => {
+const PopUser = ({ openPopUser }) => {
   return (
-    <div className="header__pop-user-set pop-user-set" id="user-set-target">
+    <div
+      className="header__pop-user-set pop-user-set"
+      id="user-set-target"
+      style={{ display: openPopUser ? "block" : "none" }}
+    >
       {/* <a href="">x</a> */}
       <p className="pop-user-set__name">Ivan Ivanov</p>
       <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>

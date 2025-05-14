@@ -1,20 +1,23 @@
 import { cardList } from "../data.js";
 import Card from "../card/Card";
+import { ColumnTitle } from "./ColumnTitle.styled.js";
+import { Cards } from "./Cards.styled.js";
+import { ColumnMain } from "./ColumnMain.styled.js";
 
-const Column = ({ title }) => {
+const Column = ({ title, column }) => {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <ColumnMain $column={column}>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
+      </ColumnTitle>
+      <Cards>
         {cardList
           .filter((item) => item.status === title)
           .map((item, index) => (
             <Card item={item} key={index} />
           ))}
-      </div>
-    </div>
+      </Cards>
+    </ColumnMain>
   );
 };
 

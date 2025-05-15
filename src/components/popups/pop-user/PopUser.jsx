@@ -4,13 +4,9 @@ import { PopUserSetName } from "./PopUserSetName.styled";
 import { PopUserTheme } from "./PopUserTheme.styled";
 import { SPopUser } from "./SPopUser.styled";
 
-const PopUser = ({ openPopUser }) => {
+const PopUser = () => {
   return (
-    <SPopUser
-      id="user-set-target"
-      style={{ display: openPopUser ? "block" : "none" }}
-      $popUserSet={true}
-    >
+    <SPopUser id="user-set-target" $popUserSet={true}>
       {/* <a href="">x</a> */}
       <PopUserSetName>Ivan Ivanov</PopUserSetName>
       <PopUserSetMail>ivan.ivanov@gmail.com</PopUserSetMail>

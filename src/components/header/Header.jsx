@@ -30,7 +30,7 @@ const Header = () => {
             <BlueButton id="btnMainNew" href="#popNewCard" variant="header">
               Создать новую задачу
             </BlueButton>
-            {openPopUser && <PopUser openPopUser={openPopUser} />}
+            {openPopUser && <PopUser />}
             <HeaderUser
               href="#"
               onClick={() => {

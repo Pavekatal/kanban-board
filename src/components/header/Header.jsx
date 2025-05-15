@@ -27,7 +27,7 @@ const Header = () => {
             </a>
           </div> */}
           <HeaderNav>
-            <BlueButton id="btnMainNew" href="#popNewCard">
+            <BlueButton id="btnMainNew" href="#popNewCard" variant="header">
               Создать новую задачу
             </BlueButton>
             {openPopUser && <PopUser openPopUser={openPopUser} />}

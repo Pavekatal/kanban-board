@@ -2,10 +2,19 @@ import Calendar from "../../calendar/Calendar";
 import WhiteButton from "../../buttons/white-button/WhiteButton";
 import BlueButton from "../../buttons/blue-button/BlueButton";
 import OrangeTheme from "../../themes/orange-theme/OrangeTheme";
+import { Link, useParams } from "react-router-dom";
+import { useMemo } from "react";
+import { cardList } from "../../data";
 
 const PopBrowse = () => {
+  const { id } = useParams();
+  const card = useMemo(
+    () => cardList.filter((card) => card.id === id) || { title: "", topic: "" },
+    [id]
+  );
+
   return (
-    <div className="pop-browse" id="popBrowse">
+    <div card={card} className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
         <div className="pop-browse__block">
           <div className="pop-browse__content">
@@ -65,22 +74,21 @@ const PopBrowse = () => {
             </div>
             <div className="pop-browse__btn-browse ">
               <div className="btn-group">
-                <WhiteButton className="btn-browse__edit _btn-bor" href="#">
-                  Редактировать задачу
-                </WhiteButton>
+                <WhiteButton variant="btnBor">Редактировать задачу</WhiteButton>
                 {/* <button className="btn-browse__edit _btn-bor _hover03">
                   <a href="#">Редактировать задачу</a>
                 </button> */}
-                <WhiteButton className="btn-browse__delete _btn-bor" href="#">
-                  Удалить задачу
-                </WhiteButton>
+                <WhiteButton variant="btnBor">Удалить задачу</WhiteButton>
                 {/* <button className="btn-browse__delete _btn-bor _hover03">
                   <a href="#">Удалить задачу</a>
                 </button> */}
               </div>
-              <BlueButton className="btn-browse__close _btn-bg" href="#">
-                Закрыть
-              </BlueButton>
+              <Link to="/">
+                <BlueButton className="btn-browse__close _btn-bg">
+                  Закрыть
+                </BlueButton>
+              </Link>
+
               {/* <button className="btn-browse__close _btn-bg _hover01">
                 <a href="#">Закрыть</a>
               </button> */}

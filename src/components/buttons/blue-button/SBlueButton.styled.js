@@ -22,6 +22,52 @@ export const SBlueButton = styled.button`
     `}
 
   ${(props) =>
+    props.$enter &&
+    css`
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 21px;
+      letter-spacing: -0.14px;
+
+      a {
+        width: 100%;
+        height: 100%;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    `}
+
+    ${(props) =>
+    props.$signupEnt &&
+    css`
+      width: 100%;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 21px;
+      letter-spacing: -0.14px;
+
+      a {
+        width: 100%;
+        height: 100%;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    `}
+
+  ${(props) =>
     props.$popExitYes &&
     css`
       width: 153px;
@@ -65,7 +111,6 @@ export const SBlueButton = styled.button`
     top: auto;
     width: calc(100vw - 32px);
     height: 40px;
-    border-radius: 4px;
     margin-right: 0;
   }
 `;

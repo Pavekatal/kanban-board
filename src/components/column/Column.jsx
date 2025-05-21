@@ -12,9 +12,9 @@ const Column = ({ title, column }) => {
       </ColumnTitle>
       <Cards>
         {cardList
-          .filter((task) => task.status === title)
-          .map((task, index) => (
-            <Card task={task} key={index} />
+          .filter((card) => card.status === title)
+          .map((card, index) => (
+            <Card card={card} key={index} />
           ))}
       </Cards>
     </ColumnMain>

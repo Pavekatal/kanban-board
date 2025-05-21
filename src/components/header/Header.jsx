@@ -7,6 +7,7 @@ import { Container } from "./Container.styled";
 import { HeaderBlock } from "./HeaderBlock.styled";
 import { HeaderNav } from "./HeaderNav.styled";
 import { HeaderUser } from "./HeaderUser.styled";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [openPopUser, setOpenPopUser] = useState(false);
@@ -27,9 +28,12 @@ const Header = () => {
             </a>
           </div> */}
           <HeaderNav>
-            <BlueButton id="btnMainNew" href="#popNewCard" variant="header">
-              Создать новую задачу
-            </BlueButton>
+            <Link to="/card/add">
+              <BlueButton id="btnMainNew" variant="header">
+                Создать новую задачу
+              </BlueButton>
+            </Link>
+
             {openPopUser && <PopUser />}
             <HeaderUser
               href="#"

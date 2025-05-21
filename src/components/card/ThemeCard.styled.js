@@ -1,8 +1,9 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const ThemeCard = styled.div`
   width: auto;
   height: 20px;
+  background-color: ${({ $color }) => $color};
   padding: 5px 14px;
   border-radius: 18px;
 
@@ -11,25 +12,4 @@ export const ThemeCard = styled.div`
     font-weight: 600;
     line-height: 10px;
   }
-
-  ${(props) =>
-    props.item.topic === "Web Design" &&
-    css`
-      background-color: #ffe4c2;
-      color: #ff6d00;
-    `}
-
-  ${(props) =>
-    props.item.topic === "Research" &&
-    css`
-      background-color: #b4fdd1;
-      color: #06b16e;
-    `}
-
-    ${(props) =>
-    props.item.topic === "Copywriting" &&
-    css`
-      background-color: #e9d4ff;
-      color: #9a48f1;
-    `}
 `;

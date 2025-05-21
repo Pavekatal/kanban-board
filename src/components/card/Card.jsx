@@ -1,3 +1,4 @@
+import { themesBgColors, themesColors } from "../themes/themesColors";
 import { CardBtn } from "./CardBtn.styled";
 import { CardContent } from "./CardContent.styled";
 import { CardDate } from "./CardDate.styled";
@@ -8,13 +9,15 @@ import { CardTitle } from "./CardTitle.styled";
 import { ThemeCard } from "./ThemeCard.styled";
 import { ThemeCategoryCard } from "./themeCategoryCard.styled";
 
-const Card = ({ item, card }) => {
+const Card = ({ task, card }) => {
   return (
     <CardItem>
       <CardsCard $card={card}>
         <CardGroup>
-          <ThemeCard item={item}>
-            <ThemeCategoryCard item={item}>{item.topic}</ThemeCategoryCard>
+          <ThemeCard $color={themesBgColors[task?.topic]}>
+            <ThemeCategoryCard $color={themesColors[task?.topic]}>
+              {task.topic}
+            </ThemeCategoryCard>
           </ThemeCard>
           <a href="#popBrowse" target="_self">
             <CardBtn>
@@ -26,7 +29,7 @@ const Card = ({ item, card }) => {
         </CardGroup>
         <CardContent>
           <a href="" target="_blank">
-            <CardTitle>{item.title}</CardTitle>
+            <CardTitle>{task.title}</CardTitle>
           </a>
           <CardDate>
             <svg
@@ -57,7 +60,7 @@ const Card = ({ item, card }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{item.date}</p>
+            <p>{task.date}</p>
           </CardDate>
         </CardContent>
       </CardsCard>

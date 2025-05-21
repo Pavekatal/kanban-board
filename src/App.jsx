@@ -6,6 +6,8 @@ import Main from "./components/main/Main";
 import "./App.css";
 import { useEffect, useState } from "react";
 import LoadingText from "./components/loading/LoadingText";
+import { Wrapper } from "./Wrapper.styled";
+import { GlobalStyle } from "./GlobalStyle.style";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,8 @@ function App() {
 
   return (
     <>
-      <div className="wrapper">
+      <GlobalStyle />
+      <Wrapper>
         {/* pop-up start */}
 
         {/* pop-up end */}
@@ -27,7 +30,7 @@ function App() {
         <PopNewCard />
         <PopBrowse />
         {loading ? <LoadingText /> : <Main />}
-      </div>
+      </Wrapper>
 
       <script src="js/script.js"></script>
     </>

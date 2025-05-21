@@ -1,5 +1,9 @@
 import Column from "../column/Column";
 import Card from "../card/Card";
+import { MainContent } from "./MainContent.styled";
+import { MainBlock } from "./MainBlock.styled";
+import { Container } from "./Container.styled";
+import { SMain } from "./SMain.styled";
 
 const Main = () => {
   const columnTitles = [
@@ -11,10 +15,10 @@ const Main = () => {
   ];
 
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          <div className="main__content">
+    <SMain>
+      <Container>
+        <MainBlock>
+          <MainContent>
             {columnTitles.map((title, index) => (
               <Column key={index} title={title} />
             ))}
@@ -39,10 +43,10 @@ const Main = () => {
             <Column title="Готово">
               <Card category="research" title="Название задачи" />
             </Column> */}
-          </div>
-        </div>
-      </div>
-    </main>
+          </MainContent>
+        </MainBlock>
+      </Container>
+    </SMain>
   );
 };
 

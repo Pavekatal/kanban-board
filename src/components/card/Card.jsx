@@ -1,41 +1,37 @@
-const Card = ({ item }) => {
-  let themeCategory;
+import { themesBgColors, themesColors } from "../themes/themesColors";
+import { CardBtn } from "./CardBtn.styled";
+import { CardContent } from "./CardContent.styled";
+import { CardDate } from "./CardDate.styled";
+import { CardGroup } from "./CardGroup.styled";
+import { CardItem } from "./CardItem.styled";
+import { CardsCard } from "./CardsCard.styled";
+import { CardTitle } from "./CardTitle.styled";
+import { ThemeCard } from "./ThemeCard.styled";
+import { ThemeCategoryCard } from "./themeCategoryCard.styled";
 
-  switch (item.topic) {
-    case "Web Design":
-      themeCategory = "_orange";
-      break;
-    case "Research":
-      themeCategory = "_green";
-      break;
-    case "Copywriting":
-      themeCategory = "_purple";
-      break;
-    default:
-      themeCategory = () => "";
-      break;
-  }
-
+const Card = ({ task, card }) => {
   return (
-    <div className="cards__item">
-      <div className="cards__card card">
-        <div className="card__group">
-          <div className={`card__theme ${themeCategory}`}>
-            <p className={`${themeCategory}`}>{item.topic}</p>
-          </div>
+    <CardItem>
+      <CardsCard $card={card}>
+        <CardGroup>
+          <ThemeCard $color={themesBgColors[task?.topic]}>
+            <ThemeCategoryCard $color={themesColors[task?.topic]}>
+              {task.topic}
+            </ThemeCategoryCard>
+          </ThemeCard>
           <a href="#popBrowse" target="_self">
-            <div className="card__btn">
+            <CardBtn>
               <div></div>
               <div></div>
               <div></div>
-            </div>
+            </CardBtn>
           </a>
-        </div>
-        <div className="card__content">
+        </CardGroup>
+        <CardContent>
           <a href="" target="_blank">
-            <h3 className="card__title">{item.title}</h3>
+            <CardTitle>{task.title}</CardTitle>
           </a>
-          <div className="card__date">
+          <CardDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13"
@@ -64,11 +60,11 @@ const Card = ({ item }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{item.date}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+            <p>{task.date}</p>
+          </CardDate>
+        </CardContent>
+      </CardsCard>
+    </CardItem>
   );
 };
 

@@ -1,41 +1,42 @@
 import BlueButton from "../../buttons/blue-button/BlueButton";
 import WhiteButton from "../../buttons/white-button/WhiteButton";
+import { PopExitBlock } from "./PopExitBlock.styled";
+import { PopExitContainer } from "./PopExitContainer.styled";
+import { PopExitFormGroup } from "./PopExitFormGroup.styled";
+import { PopExitTtl } from "./PopExitTtl.styled";
+import { SPopExit } from "./SPopExit.styled";
 
 const PopExit = () => {
   return (
-    <div className="pop-exit" id="popExit">
-      <div className="pop-exit__container">
-        <div className="pop-exit__block">
-          <div className="pop-exit__ttl">
+    <SPopExit id="popExit">
+      <PopExitContainer>
+        <PopExitBlock>
+          <PopExitTtl>
             <h2>Выйти из аккаунта?</h2>
-          </div>
+          </PopExitTtl>
           <form className="pop-exit__form" id="formExit" action="#">
-            <div className="pop-exit__form-group">
+            <PopExitFormGroup>
               <BlueButton
-                className="pop-exit__exit-yes"
                 id="exitYes"
                 href="modal/signin.html"
+                variant="popExitYes"
               >
                 Да, выйти
               </BlueButton>
               {/* <button className="pop-exit__exit-yes _hover01" id="exitYes">
                 <a href="modal/signin.html">Да, выйти</a>{" "}
               </button> */}
-              <WhiteButton
-                className="pop-exit__exit-no"
-                id="exitNo"
-                href="main.html"
-              >
+              <WhiteButton id="exitNo" href="main.html" variant="popExitNo">
                 Нет, остаться
               </WhiteButton>
               {/* <button className="pop-exit__exit-no _hover03" id="exitNo">
                 <a href="main.html">Нет, остаться</a>{" "}
               </button> */}
-            </div>
+            </PopExitFormGroup>
           </form>
-        </div>
-      </div>
-    </div>
+        </PopExitBlock>
+      </PopExitContainer>
+    </SPopExit>
   );
 };
 

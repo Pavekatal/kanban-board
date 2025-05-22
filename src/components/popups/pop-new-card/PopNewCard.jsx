@@ -2,6 +2,7 @@ import Calendar from "../../calendar/Calendar";
 import OrangeTheme from "../../themes/orange-theme/OrangeTheme";
 import GreenTheme from "../../themes/green-theme/GreenTheme";
 import PurpleTheme from "../../themes/purple-theme/PurpleTheme";
+import { Link } from "react-router-dom";
 
 const PopNewCard = () => {
   return (
@@ -10,9 +11,12 @@ const PopNewCard = () => {
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <a href="#" className="pop-new-card__close">
+            <Link to="/" className="pop-new-card__close">
               &#10006;
-            </a>
+            </Link>
+            {/* <a href="#" className="pop-new-card__close">
+              &#10006;
+            </a> */}
             <div className="pop-new-card__wrap">
               <form
                 className="pop-new-card__form form-new"

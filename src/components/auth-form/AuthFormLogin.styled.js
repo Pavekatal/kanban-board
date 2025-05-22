@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export const PopExitFormGroup = styled.div`
+export const AuthFormLogin = styled.form`
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  @media only screen and (max-width: 375px) {
-    display: block;
+  input:first-child {
+    margin-bottom: 7px;
   }
 `;

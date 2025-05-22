@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { themesBgColors, themesColors } from "../themes/themesColors";
 import { CardBtn } from "./CardBtn.styled";
 import { CardContent } from "./CardContent.styled";
@@ -9,27 +10,28 @@ import { CardTitle } from "./CardTitle.styled";
 import { ThemeCard } from "./ThemeCard.styled";
 import { ThemeCategoryCard } from "./themeCategoryCard.styled";
 
-const Card = ({ task, card }) => {
+const Card = ({ card }) => {
   return (
     <CardItem>
       <CardsCard $card={card}>
         <CardGroup>
-          <ThemeCard $color={themesBgColors[task?.topic]}>
-            <ThemeCategoryCard $color={themesColors[task?.topic]}>
-              {task.topic}
+          <ThemeCard $color={themesBgColors[card?.topic]}>
+            <ThemeCategoryCard $color={themesColors[card?.topic]}>
+              {card.topic}
             </ThemeCategoryCard>
           </ThemeCard>
-          <a href="#popBrowse" target="_self">
+          <Link to={"/card/" + card.id}>
             <CardBtn>
               <div></div>
               <div></div>
               <div></div>
             </CardBtn>
-          </a>
+          </Link>
+          {/* <a href="#popBrowse" target="_self"></a> */}
         </CardGroup>
         <CardContent>
           <a href="" target="_blank">
-            <CardTitle>{task.title}</CardTitle>
+            <CardTitle>{card.title}</CardTitle>
           </a>
           <CardDate>
             <svg
@@ -60,7 +62,7 @@ const Card = ({ task, card }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{task.date}</p>
+            <p>{card.date}</p>
           </CardDate>
         </CardContent>
       </CardsCard>

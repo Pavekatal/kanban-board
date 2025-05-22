@@ -66,11 +66,11 @@ body {
   padding: 0 30px;
 } */
 
-/* ._hover01:hover {
+._hover01:hover {
   background-color: #33399b;
-} */
+}
 
-/* ._hover02:hover,
+._hover02:hover,
 .header__user:hover {
   color: #33399b;
 }
@@ -78,15 +78,15 @@ body {
 .header__user:hover::after {
   border-left-color: #33399b;
   border-bottom-color: #33399b;
-} */
+}
 
-/* ._hover03:hover {
+._hover03:hover {
   background-color: #33399b;
   color: #ffffff;
 }
 ._hover03:hover a {
   color: #ffffff;
-} */
+}
 
 /* .pop-user-set:target, */
 /* .pop-exit:target, */
@@ -95,7 +95,7 @@ body {
   display: block;
 }
 
-/* ._orange {
+._orange {
   background-color: #ffe4c2;
   color: #ff6d00;
 }
@@ -108,7 +108,7 @@ body {
 ._purple {
   background-color: #e9d4ff;
   color: #9a48f1;
-} */
+}
 
 ._gray {
   background: #94a6be;
@@ -287,7 +287,7 @@ body {
 } */
 
 .pop-new-card {
-  display: none;
+  /* display: none; */
   width: 100%;
   min-width: 375px;
   height: 100%;
@@ -553,7 +553,7 @@ body {
 }
 
 .pop-browse {
-  display: none;
+  /* display: none; */
   width: 100%;
   height: 100%;
   min-width: 375px;

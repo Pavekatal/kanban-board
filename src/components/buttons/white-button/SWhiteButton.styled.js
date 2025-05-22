@@ -18,7 +18,7 @@ export const SWhiteButton = styled.button`
       line-height: 21px;
       font-weight: 500;
       letter-spacing: -0.14px;
-      color: #ffffff;
+      color: #565eef;
 
       a {
         width: 100%;
@@ -40,12 +40,22 @@ export const SWhiteButton = styled.button`
     css`
       width: 72px;
       height: 30px;
-
       color: #565eef;
-
       border: 1px solid #565eef;
 
       & a {
+        color: #565eef;
+      }
+    `}
+
+    ${(props) =>
+    props.$btnBor &&
+    css`
+      border: 0.7px solid var(--palette-navy-60, #565eef);
+      outline: none;
+      color: #565eef;
+
+      a {
         color: #565eef;
       }
     `}

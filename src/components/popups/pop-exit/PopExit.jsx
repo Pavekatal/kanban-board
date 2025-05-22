@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import BlueButton from "../../buttons/blue-button/BlueButton";
 import WhiteButton from "../../buttons/white-button/WhiteButton";
 import { PopExitBlock } from "./PopExitBlock.styled";
@@ -6,7 +7,13 @@ import { PopExitFormGroup } from "./PopExitFormGroup.styled";
 import { PopExitTtl } from "./PopExitTtl.styled";
 import { SPopExit } from "./SPopExit.styled";
 
-const PopExit = () => {
+const PopExit = ({ setIsAuth }) => {
+  const navigate = useNavigate();
+  function handleLogout(e) {
+    e.preventDefault();
+    setIsAuth(false);
+    navigate("/login");
+  }
   return (
     <SPopExit id="popExit">
       <PopExitContainer>
@@ -17,8 +24,8 @@ const PopExit = () => {
           <form className="pop-exit__form" id="formExit" action="#">
             <PopExitFormGroup>
               <BlueButton
+                onClick={handleLogout}
                 id="exitYes"
-                href="modal/signin.html"
                 variant="popExitYes"
               >
                 Да, выйти
@@ -26,9 +33,11 @@ const PopExit = () => {
               {/* <button className="pop-exit__exit-yes _hover01" id="exitYes">
                 <a href="modal/signin.html">Да, выйти</a>{" "}
               </button> */}
-              <WhiteButton id="exitNo" href="main.html" variant="popExitNo">
-                Нет, остаться
-              </WhiteButton>
+              <Link to="/">
+                <WhiteButton id="exitNo" variant="popExitNo">
+                  Нет, остаться
+                </WhiteButton>
+              </Link>
               {/* <button className="pop-exit__exit-no _hover03" id="exitNo">
                 <a href="main.html">Нет, остаться</a>{" "}
               </button> */}

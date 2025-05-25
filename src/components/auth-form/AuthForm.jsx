@@ -8,14 +8,84 @@ import { AuthFormModalTtl } from "./AuthFormModalTtl.styled";
 import { AuthFormLogin } from "./AuthFormLogin.styled";
 import { AuthFormGroup } from "./AuthFormGroup.styled";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { signIn, signUp } from "../../services/auth";
+import { AuthError } from "./AuthError.styled";
 
 const AuthForm = ({ isSignUp, setIsAuth }) => {
   const navigate = useNavigate();
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setIsAuth(true);
-    navigate("/");
+
+  const [userData, setUserData] = useState({
+    name: "",
+    login: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: false,
+    login: false,
+    password: false,
+  });
+
+  const [error, setError] = useState("");
+
+  const validateForm = () => {
+    const newErrors = { name: false, login: false, password: false };
+    let isValid = true;
+
+    if (isSignUp && !userData.name.trim()) {
+      newErrors.name = true;
+      setError("Заполните все поля");
+      isValid = false;
+    }
+
+    if (!userData.login.trim()) {
+      newErrors.login = true;
+      setError("Заполните все поля");
+      isValid = false;
+    }
+
+    if (!userData.password.trim()) {
+      newErrors.password = true;
+      setError("Заполните все поля");
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+    setErrors({ ...errors, [name]: false });
+    setError("");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+    try {
+      const data = !isSignUp
+        ? await signIn({ login: userData.login, password: userData.password })
+        : await signUp(userData);
+
+      if (data) {
+        setIsAuth(true);
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        navigate("/");
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <SAuthForm>
       <AuthFormContainer>
@@ -25,31 +95,41 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
               <h2>{isSignUp ? "Регистрация" : "Вход"}</h2>
             </AuthFormModalTtl>
             <AuthFormLogin
-              onSubmit={handleLogin}
-              id={isSignUp ? "formLogUp" : "formLogIn"}
+              onSubmit={handleSubmit}
+              // id={isSignUp ? "formLogUp" : "formLogIn"}
             >
               {isSignUp && (
                 <Input
+                  error={errors.name}
                   type="text"
                   id="formname"
                   name="name"
                   placeholder="Имя"
+                  value={userData.name}
+                  onChange={handleChange}
                 />
               )}
               <Input
+                error={errors.login}
                 type="text"
                 id="formlogin"
                 name="login"
                 placeholder="Эл. почта"
+                value={userData.login}
+                onChange={handleChange}
               />
               <Input
+                error={errors.password}
                 type="password"
                 id="formpassword"
                 name="password"
                 placeholder="Пароль"
+                value={userData.password}
+                onChange={handleChange}
               />
+              <AuthError>{error}</AuthError>
               <BlueButton
-                onClick={handleLogin}
+                // onClick={handleSubmit}
                 id="btnEnter"
                 variant={isSignUp ? "signupEnt" : "enter"}
               >

@@ -5,7 +5,7 @@ import { MainBlock } from "./MainBlock.styled";
 import { Container } from "./Container.styled";
 import { SMain } from "./SMain.styled";
 
-const Main = () => {
+const Main = ({ error, loading, tasks }) => {
   const columnTitles = [
     "Без статуса",
     "Нужно сделать",
@@ -20,11 +20,17 @@ const Main = () => {
         <MainBlock>
           <MainContent>
             {columnTitles.map((title, index) => (
-              <Column key={index} title={title} />
+              <Column
+                loading={loading}
+                tasks={tasks}
+                key={index}
+                title={title}
+              />
             ))}
           </MainContent>
         </MainBlock>
       </Container>
+      <p>{error}</p>
     </SMain>
   );
 };

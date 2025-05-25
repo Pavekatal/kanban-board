@@ -5,6 +5,17 @@ export const Input = ({
   id = "",
   name = "",
   placeholder = "",
+  error = false,
+  onChange,
 }) => {
-  return <SInput type={type} id={id} name={name} placeholder={placeholder} />;
+  return (
+    <SInput
+      type={type}
+      id={id}
+      name={name}
+      placeholder={placeholder}
+      $error={error}
+      onChange={onChange}
+    />
+  );
 };

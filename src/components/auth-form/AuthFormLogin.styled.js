@@ -7,7 +7,11 @@ export const AuthFormLogin = styled.form`
   align-items: center;
   justify-content: center;
 
-  input:first-child {
+  input {
     margin-bottom: 7px;
+  }
+
+  input:last-of-type {
+    margin-bottom: 0;
   }
 `;

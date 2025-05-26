@@ -11,6 +11,14 @@ import { ThemeCard } from "./ThemeCard.styled";
 import { ThemeCategoryCard } from "./themeCategoryCard.styled";
 
 const Card = ({ card }) => {
+  const formattedDate = (date) => {
+    const dateObj = new Date(date);
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const year = String(dateObj.getFullYear()).slice(-2);
+    return `${day}.${month}.${year}`;
+  };
+
   return (
     <CardItem>
       <CardsCard $card={card}>
@@ -20,7 +28,7 @@ const Card = ({ card }) => {
               {card.topic}
             </ThemeCategoryCard>
           </ThemeCard>
-          <Link to={"/card/" + card.id}>
+          <Link to={"/card/" + card._id}>
             <CardBtn>
               <div></div>
               <div></div>
@@ -62,7 +70,7 @@ const Card = ({ card }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{card.date}</p>
+            <p>{formattedDate(card.date)}</p>
           </CardDate>
         </CardContent>
       </CardsCard>

@@ -4,6 +4,7 @@ import { MainContent } from "./MainContent.styled";
 import { MainBlock } from "./MainBlock.styled";
 import { Container } from "./Container.styled";
 import { SMain } from "./SMain.styled";
+import LoadingText from "../loading/LoadingText";
 
 const Main = ({ error, loading, tasks }) => {
   const columnTitles = [
@@ -19,14 +20,18 @@ const Main = ({ error, loading, tasks }) => {
       <Container>
         <MainBlock>
           <MainContent>
-            {columnTitles.map((title, index) => (
-              <Column
-                loading={loading}
-                tasks={tasks}
-                key={index}
-                title={title}
-              />
-            ))}
+            {loading ? (
+              <LoadingText />
+            ) : (
+              columnTitles.map((title, index) => (
+                <Column
+                  loading={loading}
+                  tasks={tasks}
+                  key={index}
+                  title={title}
+                />
+              ))
+            )}
           </MainContent>
         </MainBlock>
       </Container>

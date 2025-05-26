@@ -5,13 +5,28 @@ import { Cards } from "./Cards.styled.js";
 import { ColumnMain } from "./ColumnMain.styled.js";
 
 const Column = ({ title, column, tasks }) => {
+  const validStatus = [
+    "без статуса",
+    "нужно сделать",
+    "в работе",
+    "тестирование",
+    "готово",
+  ];
+
+  const statusCheck = tasks.map((task) => {
+    if (!validStatus.includes(task.status.toLowerCase())) {
+      return { ...task, status: "без статуса" };
+    }
+    return task;
+  });
+
   return (
     <ColumnMain $column={column}>
       <ColumnTitle>
         <p>{title}</p>
       </ColumnTitle>
       <Cards>
-        {tasks
+        {statusCheck
           .filter((card) => card.status.toLowerCase() === title.toLowerCase())
           .map((card, index) => (
             <Card card={card} key={index} />

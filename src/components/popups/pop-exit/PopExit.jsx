@@ -6,12 +6,15 @@ import { PopExitContainer } from "./PopExitContainer.styled";
 import { PopExitFormGroup } from "./PopExitFormGroup.styled";
 import { PopExitTtl } from "./PopExitTtl.styled";
 import { SPopExit } from "./SPopExit.styled";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
-const PopExit = ({ setIsAuth }) => {
+const PopExit = () => {
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
   function handleLogout(e) {
     e.preventDefault();
-    setIsAuth(false);
+    logout();
     navigate("/login");
   }
   return (
@@ -21,13 +24,14 @@ const PopExit = ({ setIsAuth }) => {
           <PopExitTtl>
             <h2>Выйти из аккаунта?</h2>
           </PopExitTtl>
-          <form className="pop-exit__form" id="formExit" action="#">
+          <form
+            onSubmit={handleLogout}
+            className="pop-exit__form"
+            id="formExit"
+            action="#"
+          >
             <PopExitFormGroup>
-              <BlueButton
-                onClick={handleLogout}
-                id="exitYes"
-                variant="popExitYes"
-              >
+              <BlueButton id="exitYes" variant="popExitYes">
                 Да, выйти
               </BlueButton>
               {/* <button className="pop-exit__exit-yes _hover01" id="exitYes">

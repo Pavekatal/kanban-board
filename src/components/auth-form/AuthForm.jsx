@@ -8,12 +8,14 @@ import { AuthFormModalTtl } from "./AuthFormModalTtl.styled";
 import { AuthFormLogin } from "./AuthFormLogin.styled";
 import { AuthFormGroup } from "./AuthFormGroup.styled";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signIn, signUp } from "../../services/auth";
 import { AuthError } from "./AuthError.styled";
+import { AuthContext } from "../../context/AuthContext";
 
-const AuthForm = ({ isSignUp, setIsAuth }) => {
+const AuthForm = ({ isSignUp }) => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const [userData, setUserData] = useState({
     name: "",
@@ -77,8 +79,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
         : await signUp(userData);
 
       if (data) {
-        setIsAuth(true);
-        localStorage.setItem("userInfo", JSON.stringify(data));
+        login(data);
         navigate("/");
       }
     } catch (err) {

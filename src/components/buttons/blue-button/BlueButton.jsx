@@ -9,6 +9,7 @@ const BlueButton = ({ id, children, variant }) => {
       $enter={variant === "enter"}
       $signupEnt={variant === "signupEnt"}
       $hover01={true}
+      // onClick={onClick}
     >
       {/* <button className="header__btn-main-new _hover01" id="btnMainNew"> */}
       {/* <a href={href}></a> */}

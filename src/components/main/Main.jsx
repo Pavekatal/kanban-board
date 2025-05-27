@@ -4,8 +4,9 @@ import { MainContent } from "./MainContent.styled";
 import { MainBlock } from "./MainBlock.styled";
 import { Container } from "./Container.styled";
 import { SMain } from "./SMain.styled";
+import LoadingText from "../loading/LoadingText";
 
-const Main = () => {
+const Main = ({ error, loading, tasks }) => {
   const columnTitles = [
     "Без статуса",
     "Нужно сделать",
@@ -19,12 +20,22 @@ const Main = () => {
       <Container>
         <MainBlock>
           <MainContent>
-            {columnTitles.map((title, index) => (
-              <Column key={index} title={title} />
-            ))}
+            {loading ? (
+              <LoadingText />
+            ) : (
+              columnTitles.map((title, index) => (
+                <Column
+                  loading={loading}
+                  tasks={tasks}
+                  key={index}
+                  title={title}
+                />
+              ))
+            )}
           </MainContent>
         </MainBlock>
       </Container>
+      <p>{error}</p>
     </SMain>
   );
 };

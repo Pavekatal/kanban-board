@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ThemeCard = styled.div`
   width: auto;
@@ -12,4 +12,28 @@ export const ThemeCard = styled.div`
     font-weight: 600;
     line-height: 10px;
   }
+
+  ${(props) =>
+    props.$themePopCard &&
+    css`
+      display: inline-block;
+      height: 30px;
+      padding: 8px 20px;
+      border-radius: 24px;
+      margin-right: 7px;
+      opacity: 0.4;
+
+      p {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 14px;
+        white-space: nowrap;
+      }
+    `}
+
+  ${(props) =>
+    props.$activeCategory &&
+    css`
+      opacity: 1 !important;
+    `}
 `;

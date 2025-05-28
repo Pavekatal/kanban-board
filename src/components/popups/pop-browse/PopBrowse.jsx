@@ -2,43 +2,55 @@ import Calendar from "../../calendar/Calendar";
 import WhiteButton from "../../buttons/white-button/WhiteButton";
 import BlueButton from "../../buttons/blue-button/BlueButton";
 import OrangeTheme from "../../themes/orange-theme/OrangeTheme";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import { useMemo } from "react";
 // import { cardList } from "../../data";
 import { AuthError } from "../../auth-form/AuthError.styled";
 import { themesBgColors, themesColors } from "../../themes/themesColors";
 import { ThemeCategoryCard } from "../../card/themeCategoryCard.styled";
 import { ThemeCard } from "../../card/ThemeCard.styled";
+import { useContext, useEffect, useState } from "react";
+import TasksProvider from "../../../context/TasksProvider";
+import { TasksContext } from "../../../context/TasksContext";
+import LoadingText from "../../loading/LoadingText";
 
-const PopBrowse = ({ task, error }) => {
-  // const { id } = useParams();
-  // const card = useMemo(
-  //   () =>
-  //     cardList.filter((task) => task.id === id) || {
-  //       title: "",
-  //       topic: "",
-  //     },
-  //   [id]
-  // );
+const PopBrowse = () => {
+  const { id } = useParams();
+  const [task, setTask] = useState(null);
+  const { viewTask, error } = useContext(TasksContext);
 
-  const card = task || { title: "", topic: "" };
-  console.log("task", task);
+  console.log("params id:", id);
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      try {
+        const data = await viewTask({ id });
+        console.log("Fetched data:", data);
+        setTask(data);
+      } catch (error) {
+        console.log("Ошибка при получении данных о задаче:", error);
+      }
+    };
+    fetchTask();
+  }, [viewTask, id]);
+
+  if (!task) return <LoadingText />;
 
   return (
     <div className="pop-browse" id="popBrowse">
       <div className="pop-browse__container">
         <div className="pop-browse__block">
           <div className="pop-browse__content">
-            <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">Название задачи {card._id}</h3>
+            <div id={id} className="pop-browse__top-block">
+              <h3 className="pop-browse__ttl">{task.title}</h3>
               <AuthError>{error}</AuthError>
               <ThemeCard
                 $themePopCard="themePopCard"
                 $activeCategory="activeCategory"
-                $color={themesBgColors[card.topic]}
+                $color={themesBgColors[task.topic]}
               >
-                <ThemeCategoryCard $color={themesColors[card.topic]}>
-                  {card.topic}
+                <ThemeCategoryCard $color={themesColors[task.topic]}>
+                  {task.topic}
                 </ThemeCategoryCard>
               </ThemeCard>
               {/* <OrangeTheme className="categories__theme theme-top _active-category"></OrangeTheme> */}
@@ -49,7 +61,10 @@ const PopBrowse = ({ task, error }) => {
             <div className="pop-browse__status status">
               <p className="status__p subttl">Статус</p>
               <div className="status__themes">
-                <div className="status__theme _hide">
+                <div className="status__theme _gray">
+                  <p className="_gray">{task.status}</p>
+                </div>
+                {/* <div className="status__theme _hide">
                   <p>Без статуса</p>
                 </div>
                 <div className="status__theme _gray">
@@ -63,7 +78,7 @@ const PopBrowse = ({ task, error }) => {
                 </div>
                 <div className="status__theme _hide">
                   <p>Готово</p>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="pop-browse__wrap">

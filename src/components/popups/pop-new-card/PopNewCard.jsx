@@ -1,4 +1,4 @@
-import Calendar from "../../calendar/Calendar";
+import Calendar from "../../calendar/MyCalendar";
 import OrangeTheme from "../../themes/orange-theme/OrangeTheme";
 import GreenTheme from "../../themes/green-theme/GreenTheme";
 import PurpleTheme from "../../themes/purple-theme/PurpleTheme";

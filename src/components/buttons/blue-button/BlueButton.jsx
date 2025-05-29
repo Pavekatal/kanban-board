@@ -8,6 +8,7 @@ const BlueButton = ({ id, children, variant }) => {
       $popExitYes={variant === "popExitYes"}
       $enter={variant === "enter"}
       $signupEnt={variant === "signupEnt"}
+      $btnBg={variant === "btnBg"}
       $hover01={true}
       // onClick={onClick}
     >

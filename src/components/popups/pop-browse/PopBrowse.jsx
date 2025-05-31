@@ -1,6 +1,6 @@
 import WhiteButton from "../../buttons/white-button/WhiteButton";
 import BlueButton from "../../buttons/blue-button/BlueButton";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FillingError } from "../../auth-form/AuthError.styled";
 import { themesBgColors, themesColors } from "../../themes/themesColors";
 import { ThemeCategoryCard } from "../../card/themeCategoryCard.styled";
@@ -34,13 +34,27 @@ import {
 import { SLabel } from "../../inputs/SInput.syled";
 import TextArea from "../../inputs/TextArea";
 import { formattedDate } from "../../../utils/formattedDate";
+import { AuthContext } from "../../../context/AuthContext";
 
 const PopBrowse = () => {
   const { id } = useParams();
   const [task, setTask] = useState(null);
-  const { viewTask, error } = useContext(TasksContext);
+  const { viewTask, updateTask, removeTask, error, setError } =
+    useContext(TasksContext);
+  const { user } = useContext(AuthContext);
   const [isEditTask, setIsEditTask] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [dataField, setDataField] = useState(null);
+  const navigate = useNavigate();
+
+  // const [errors, setErrors] = useState({
+  //   title: false,
+  //   topic: false,
+  //   status: false,
+  //   description: false,
+  //   date: false,
+  // });
 
   const statuses = [
     "без статуса",
@@ -56,6 +70,7 @@ const PopBrowse = () => {
         const data = await viewTask({ id });
         console.log("Fetched data:", data);
         setTask(data);
+        setDataField(data.description);
         setSelectedStatus(data.status);
       } catch (error) {
         console.log("Ошибка при получении данных о задаче:", error);
@@ -64,11 +79,14 @@ const PopBrowse = () => {
     fetchTask();
   }, [viewTask, id]);
 
-  const handleSelectedStatus = (status) => {
-    setSelectedStatus(status);
-  };
+  //  title: data.title,
+  //         topic: data.topic,
+  //         status: data.status,
+  //         description: data.description,
+  //         date: data.date,
+  //         userId: user._id,
 
-  const handleEditTask = (event) => {
+  const handleEditTask = async (event) => {
     event.preventDefault();
     setIsEditTask(true);
   };
@@ -77,6 +95,53 @@ const PopBrowse = () => {
     event.preventDefault();
     setIsEditTask(false);
     if (task) setSelectedStatus(task.status);
+  };
+
+  const handleSelectedStatus = (status) => {
+    setSelectedStatus(status);
+  };
+
+  const handleUpdateTask = async (event) => {
+    event.preventDefault();
+
+    if (!user || !user.token) {
+      setError("Пользователь не авторизован");
+      return;
+    }
+
+    const dataToSend = {
+      ...task,
+      description: dataField,
+      date: selectedDate ? new Date(selectedDate).toISOString() : task.date,
+      status: selectedStatus,
+    };
+
+    try {
+      console.log("dataToSend перед запросом updateTask", dataToSend);
+      console.log("Передаваемый id в updateTask", id);
+      await updateTask({ id, user, task: dataToSend });
+      const updatedTask = await viewTask({ id, token: user.token });
+      setTask(updatedTask);
+      console.log("dataToSend после запроса updateTask", dataToSend);
+      setIsEditTask(false);
+      setError("");
+    } catch (err) {
+      setError(err.message);
+      console.log(err.message);
+    }
+  };
+
+  const handleDeleteTask = async (event) => {
+    event.preventDefault();
+    try {
+      const updatedTask = await removeTask({ id, token: user.token });
+      // const updatedTask = await viewTask({ id, token: user.token });
+      setTask(updatedTask);
+      navigate("/");
+    } catch (err) {
+      setError(err.message);
+      console.log(err.message);
+    }
   };
 
   return (
@@ -111,6 +176,7 @@ const PopBrowse = () => {
                     statuses.map((status) => (
                       <StatusTheme
                         key={status}
+                        $isEdit={true}
                         $isActive={
                           status.toLocaleLowerCase() ===
                           selectedStatus.toLowerCase()
@@ -128,15 +194,19 @@ const PopBrowse = () => {
                   <PopBrowseFormBlock>
                     <SLabel htmlFor="textArea01">Описание задачи</SLabel>
                     <TextArea
-                      name="text"
+                      name="description"
                       id="textArea01"
                       readOnly={!isEditTask}
                       placeholder="Введите описание задачи..."
-                      value={task.description}
+                      value={dataField}
+                      onChange={(event) => setDataField(event.target.value)}
                     ></TextArea>
                   </PopBrowseFormBlock>
                 </PopBrowseForm>
-                <Calendar deadline={formattedDate(task.date)}>
+                <Calendar
+                  onDateChange={(date) => setSelectedDate(date)}
+                  deadline={formattedDate(task.date)}
+                >
                   Срок исполнения:{" "}
                 </Calendar>
               </PopBrowseWrap>
@@ -156,7 +226,9 @@ const PopBrowse = () => {
                     {/* <button className="btn-browse__edit _btn-bor _hover03">
                   <a href="#">Редактировать задачу</a>
                 </button> */}
-                    <WhiteButton variant="btnBor">Удалить задачу</WhiteButton>
+                    <WhiteButton onClick={handleDeleteTask} variant="btnBor">
+                      Удалить задачу
+                    </WhiteButton>
                     {/* <button className="btn-browse__delete _btn-bor _hover03">
                   <a href="#">Удалить задачу</a>
                 </button> */}
@@ -172,7 +244,9 @@ const PopBrowse = () => {
               ) : (
                 <PopBrowseBtnEdit>
                   <div className="btn-group">
-                    <BlueButton $btnBor="btnBor">Сохранить</BlueButton>
+                    <BlueButton onClick={handleUpdateTask} $btnBor="btnBor">
+                      Сохранить
+                    </BlueButton>
                     {/* <button className="btn-edit__edit _btn-bg _hover01">
                   <a href="#">Сохранить</a>
                 </button> */}
@@ -185,7 +259,11 @@ const PopBrowse = () => {
                     {/* <button className="btn-edit__edit _btn-bor _hover03">
                   <a href="#">Отменить</a>
                 </button> */}
-                    <WhiteButton variant="btnBor" href="#">
+                    <WhiteButton
+                      onClick={handleDeleteTask}
+                      variant="btnBor"
+                      href="#"
+                    >
                       Удалить задачу
                     </WhiteButton>
                     {/* <button

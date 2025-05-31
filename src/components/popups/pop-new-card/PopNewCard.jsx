@@ -26,7 +26,6 @@ import { FillingError } from "../../auth-form/AuthError.styled";
 import { useNavigate } from "react-router-dom";
 import { fetchTasks } from "../../../services/api";
 import { AuthContext } from "../../../context/AuthContext";
-// import { userLS } from "../../../utils/UsersLS";
 
 const PopNewCard = () => {
   const themes = ["Web Design", "Research", "Copywriting"];

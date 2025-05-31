@@ -38,7 +38,7 @@ export const StatusTheme = styled.div`
   &:hover {
     background: #94a6be;
     color: #ffffff;
-    cursor: pointer;
+    cursor: ${(props) => (props.$isEdit ? "pointer" : "auto")};
   }
 
   /* ${(props) =>

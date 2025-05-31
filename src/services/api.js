@@ -1,4 +1,5 @@
 import axios from "axios";
+import { userLS } from "../utils/UsersLS";
 
 const API_URL = "https://wedev-api.sky.pro/api/kanban/";
 
@@ -29,16 +30,44 @@ export async function getTask({ id, token }) {
 }
 
 export async function postTask({ token, task }) {
+  console.log("task в пост запросе:", task);
+  console.log("token внутри postTask:", { token, task });
+  if (!token) {
+    throw new Error("Токен отсутствует");
+  }
   try {
-    const data = await axios.post(API_URL, task, {
+    const user = userLS();
+    console.log("Внутри postTask, token:", token);
+
+    const requestBody = {
+      ...task,
+      userId: user._id,
+    };
+    console.log("Отправляемые данные:", requestBody);
+    const response = await axios.post(API_URL, requestBody, {
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "",
       },
     });
-    return data.data.tasks;
+
+    if (response.data === 204 || !response.data) {
+      return [];
+    }
+
+    response.data.tasks || response.data;
+    console.log("Ответ сервера:", response);
   } catch (error) {
-    throw new Error(error.message);
+    if (error.response && error.response.data) {
+      const errorData = error.response.data;
+      throw new Error(
+        errorData.message || `Ошибка API: статус ${error.response.status}`
+      );
+    } else if (error.request) {
+      throw new Error("Нет ответа от сервера");
+    } else {
+      throw new Error(error.message);
+    }
   }
 }
 

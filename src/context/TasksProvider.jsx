@@ -8,6 +8,7 @@ import {
   getTask,
   postTask,
 } from "../services/api";
+// import { userLS } from "../utils/UsersLS";
 
 const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
@@ -55,13 +56,24 @@ const TasksProvider = ({ children }) => {
   );
 
   const addNewTask = async ({ task }) => {
+    console.log("Внутри addNewTask:", { user });
     setLoading(true);
     try {
-      const newTask = await postTask({ token: user.token, task });
+      console.log("User при вызове postTask:", user);
+      if (!user || !user.token) {
+        console.log("Нет токена пользователя");
+        throw new Error("Нет токена пользователя");
+      }
+      const newTask = await postTask({
+        token: user.token,
+
+        task,
+      });
+      console.log("User после вызова postTask:", user);
       if (newTask) setTasks(newTask);
     } catch (err) {
       setError(err.message);
-      console.error("Не удалось добавить задачу:", err.message);
+      console.error("Не удалось добавить задачу:", err);
     } finally {
       setLoading(false);
     }
@@ -97,6 +109,7 @@ const TasksProvider = ({ children }) => {
     <TasksContext.Provider
       value={{
         tasks,
+        setTasks,
         taskData,
         loading,
         viewTask,
@@ -104,6 +117,7 @@ const TasksProvider = ({ children }) => {
         updateTask,
         removeTask,
         error,
+        setError,
       }}
     >
       {children}

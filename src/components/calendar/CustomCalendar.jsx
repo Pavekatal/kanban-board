@@ -101,9 +101,18 @@ const NavAction = styled.div`
 `;
 
 // Основной компонент
-const Calendar = () => {
+const Calendar = ({ children, deadline, onDateChange }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date(2025, 4)); // сентябрь2023 (месяцы с нуля)
   const [selectedDate, setSelectedDate] = useState(null);
+
+  // Получение данных о текущем дне
+  const today = new Date();
+
+  const isSameDay = (date1, date2) => {
+    date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate();
+  };
 
   // Получение данных о текущем месяце
   const year = currentMonth.getFullYear();
@@ -167,6 +176,9 @@ const Calendar = () => {
   // Обработчик выбора даты
   const handleDateClick = (day) => {
     setSelectedDate(day.date);
+    if (onDateChange) {
+      onDateChange(day.date);
+    }
   };
 
   // Форматирование месяца и года для отображения
@@ -233,11 +245,13 @@ const Calendar = () => {
                 selectedDate &&
                 day.date.toDateString() === selectedDate.toDateString()
               }
-              isToday={day.date.toDateString() === new Date().toDateString()}
-              isSelected={
-                selectedDate &&
-                day.date.toDateString() === selectedDate.toDateString()
-              }
+              isToday={isSameDay(day.date, today)}
+              // isToday={day.date.toDateString() === new Date().toDateString()}
+              isSelected={selectedDate && isSameDay(day.date, selectedDate)}
+              // isSelected={
+              //   selectedDate &&
+              //   day.date.toDateString() === selectedDate.toDateString()
+              // }
               onClick={() => handleDateClick(day)}
             >
               {day.day}
@@ -246,7 +260,7 @@ const Calendar = () => {
         </CellsContainer>
 
         {/* Срок исполнения */}
-        {selectedDate && (
+        {selectedDate ? (
           <div className="calendar__period">
             <p className="calendar__p date-end">
               Срок исполнения:{" "}
@@ -257,6 +271,13 @@ const Calendar = () => {
                   year: "2-digit",
                 })}
               </span>
+            </p>
+          </div>
+        ) : (
+          <div className="calendar__period">
+            <p className="calendar__p date-end">
+              {children}
+              <span>{deadline}</span>
             </p>
           </div>
         )}

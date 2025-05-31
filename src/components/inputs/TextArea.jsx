@@ -7,7 +7,10 @@ const TextArea = ({
   placeholder = "",
   error = false,
   readOnly = false,
-  onChage,
+  value = "",
+  description = "",
+  newCardTextArea,
+  onChange,
 }) => {
   return (
     <STextArea
@@ -17,7 +20,10 @@ const TextArea = ({
       placeholder={placeholder}
       $error={error}
       readOnly={readOnly}
-      onChage={onChage}
+      value={value}
+      $description={description}
+      $newCardTextArea={newCardTextArea}
+      onChange={onChange}
     ></STextArea>
   );
 };

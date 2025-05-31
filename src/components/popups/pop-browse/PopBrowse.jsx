@@ -1,8 +1,7 @@
 import WhiteButton from "../../buttons/white-button/WhiteButton";
 import BlueButton from "../../buttons/blue-button/BlueButton";
-import OrangeTheme from "../../themes/orange-theme/OrangeTheme";
 import { Link, useParams } from "react-router-dom";
-import { AuthError } from "../../auth-form/AuthError.styled";
+import { FillingError } from "../../auth-form/AuthError.styled";
 import { themesBgColors, themesColors } from "../../themes/themesColors";
 import { ThemeCategoryCard } from "../../card/themeCategoryCard.styled";
 import { ThemeCard } from "../../card/ThemeCard.styled";
@@ -34,6 +33,7 @@ import {
 } from "../../statuses/SStatus.styled";
 import { SLabel } from "../../inputs/SInput.syled";
 import TextArea from "../../inputs/TextArea";
+import { formattedDate } from "../../../utils/formattedDate";
 
 const PopBrowse = () => {
   const { id } = useParams();
@@ -49,8 +49,6 @@ const PopBrowse = () => {
     "тестирование",
     "готово",
   ];
-
-  console.log("params id:", id);
 
   useEffect(() => {
     const fetchTask = async () => {
@@ -91,7 +89,7 @@ const PopBrowse = () => {
             <PopBrowseContent>
               <PopBrowseTopBlock id={id}>
                 <PopBrowseTtl>{task.title}</PopBrowseTtl>
-                <AuthError>{error}</AuthError>
+                <FillingError>{error}</FillingError>
                 <ThemeCard
                   $themePopCard="themePopCard"
                   $activeCategory="activeCategory"
@@ -101,9 +99,6 @@ const PopBrowse = () => {
                     {task.topic}
                   </ThemeCategoryCard>
                 </ThemeCard>
-                {/* <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">Web Design</p>
-              </div> */}
               </PopBrowseTopBlock>
               <SStatus>
                 <StatusP>Статус</StatusP>
@@ -137,10 +132,13 @@ const PopBrowse = () => {
                       id="textArea01"
                       readOnly={!isEditTask}
                       placeholder="Введите описание задачи..."
+                      value={task.description}
                     ></TextArea>
                   </PopBrowseFormBlock>
                 </PopBrowseForm>
-                <Calendar />
+                <Calendar deadline={formattedDate(task.date)}>
+                  Срок исполнения:{" "}
+                </Calendar>
               </PopBrowseWrap>
               {/* <div className="theme-down__categories theme-down">
                 <CategoriesP>Категория</CategoriesP>

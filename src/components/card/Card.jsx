@@ -9,21 +9,14 @@ import { CardsCard } from "./CardsCard.styled";
 import { CardTitle } from "./CardTitle.styled";
 import { ThemeCard } from "./ThemeCard.styled";
 import { ThemeCategoryCard } from "./themeCategoryCard.styled";
+import { formattedDate } from "../../utils/formattedDate";
 
 const Card = ({ card }) => {
-  const formattedDate = (date) => {
-    const dateObj = new Date(date);
-    const day = String(dateObj.getDate()).padStart(2, "0");
-    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-    const year = String(dateObj.getFullYear()).slice(-2);
-    return `${day}.${month}.${year}`;
-  };
-
   return (
     <CardItem>
       <CardsCard $card={card}>
         <CardGroup>
-          <ThemeCard $color={themesBgColors[card?.topic]}>
+          <ThemeCard $color={themesBgColors[card?.topic]} $activeCategory>
             <ThemeCategoryCard $color={themesColors[card?.topic]}>
               {card.topic}
             </ThemeCategoryCard>

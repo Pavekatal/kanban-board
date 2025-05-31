@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SInput = styled.input`
   width: 100%;
@@ -6,7 +6,7 @@ export const SInput = styled.input`
   border-radius: 8px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
-  padding: 10px 8px;
+  padding: ${(props) => (!props.$newCardInput ? "10px 8px" : "14px")};
 
   &::-moz-placeholder {
     font-family: "Roboto", sans-serif;
@@ -25,6 +25,32 @@ export const SInput = styled.input`
     letter-spacing: -0.28px;
     color: #94a6be;
   }
+
+  ${(props) =>
+    props.$newCardInput &&
+    css`
+      background: transparent;
+      font-size: 14px;
+      line-height: 1;
+      letter-spacing: -0.14px;
+      margin: 20px 0;
+
+      &::-moz-placeholder {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1px;
+        color: #94a6be;
+        letter-spacing: -0.14px;
+      }
+
+      &::placeholder {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1px;
+        color: #94a6be;
+        letter-spacing: -0.14px;
+      }
+    `}
 `;
 
 export const STextArea = styled.textarea`
@@ -57,6 +83,12 @@ export const STextArea = styled.textarea`
     letter-spacing: -0.14px;
     padding-top: 14px;
   }
+
+  ${(props) =>
+    props.$newCardTextArea &&
+    css`
+      background: transparent;
+    `}
 
   @media screen and (max-width: 495px) {
     max-width: 100%;

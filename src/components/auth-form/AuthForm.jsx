@@ -10,7 +10,7 @@ import { AuthFormGroup } from "./AuthFormGroup.styled";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { signIn, signUp } from "../../services/auth";
-import { AuthError } from "./AuthError.styled";
+import { FillingError } from "./AuthError.styled";
 import { AuthContext } from "../../context/AuthContext";
 
 const AuthForm = ({ isSignUp }) => {
@@ -128,7 +128,7 @@ const AuthForm = ({ isSignUp }) => {
                 value={userData.password}
                 onChange={handleChange}
               />
-              <AuthError>{error}</AuthError>
+              <FillingError>{error}</FillingError>
               <BlueButton
                 // onClick={handleSubmit}
                 id="btnEnter"

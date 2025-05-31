@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 // Основные стили
@@ -52,7 +52,7 @@ const CellsContainer = styled.div`
 
 const Cell = styled.div.withConfig({
   shouldForwardProp: (prop) =>
-    !["isActive", "otherMonth", "isToday", "isSelected"].includes(prop),
+    !["isActive", "otherMonth", "isSelected"].includes(prop),
 })`
   width: 22px;
   height: 22px;
@@ -69,7 +69,7 @@ const Cell = styled.div.withConfig({
   color: ${(props) => (props.isActive ? "#fff" : "#94a6be")};
   background-color: ${(props) => (props.isActive ? "#94A6BE" : "transparent")};
   opacity: ${(props) => (props.otherMonth ? "0.3" : "1")};
-  font-weight: ${(props) => (props.isToday ? "bold" : "normal")};
+  font-weight: ${(props) => (props.$isToday ? "bold" : "normal")};
 
   &:hover {
     color: #94a6be;
@@ -101,17 +101,19 @@ const NavAction = styled.div`
 `;
 
 // Основной компонент
-const Calendar = ({ children, deadline, onDateChange }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 4)); // сентябрь2023 (месяцы с нуля)
+const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
+  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 4));
   const [selectedDate, setSelectedDate] = useState(null);
 
   // Получение данных о текущем дне
   const today = new Date();
 
   const isSameDay = (date1, date2) => {
-    date1.getFullYear() === date2.getFullYear() &&
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
       date1.getMonth() === date2.getMonth() &&
-      date1.getDate() === date2.getDate();
+      date1.getDate() === date2.getDate()
+    );
   };
 
   // Получение данных о текущем месяце
@@ -245,14 +247,18 @@ const Calendar = ({ children, deadline, onDateChange }) => {
                 selectedDate &&
                 day.date.toDateString() === selectedDate.toDateString()
               }
-              isToday={isSameDay(day.date, today)}
+              $isToday={isSameDay(day.date, today)}
               // isToday={day.date.toDateString() === new Date().toDateString()}
               isSelected={selectedDate && isSameDay(day.date, selectedDate)}
               // isSelected={
               //   selectedDate &&
               //   day.date.toDateString() === selectedDate.toDateString()
               // }
-              onClick={() => handleDateClick(day)}
+              onClick={() => {
+                if (isEditCalendar) {
+                  handleDateClick(day);
+                }
+              }}
             >
               {day.day}
             </Cell>

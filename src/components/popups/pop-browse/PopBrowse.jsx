@@ -11,7 +11,6 @@ import LoadingText from "../../loading/LoadingText";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "../../calendar/CustomCalendar";
 import {
-  CategoriesP,
   PopBrowseBlock,
   PopBrowseBtnBrowse,
   PopBrowseBtnEdit,
@@ -47,14 +46,7 @@ const PopBrowse = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [dataField, setDataField] = useState(null);
   const navigate = useNavigate();
-
-  // const [errors, setErrors] = useState({
-  //   title: false,
-  //   topic: false,
-  //   status: false,
-  //   description: false,
-  //   date: false,
-  // });
+  const isEditCalendar = isEditTask;
 
   const statuses = [
     "без статуса",
@@ -78,13 +70,6 @@ const PopBrowse = () => {
     };
     fetchTask();
   }, [viewTask, id]);
-
-  //  title: data.title,
-  //         topic: data.topic,
-  //         status: data.status,
-  //         description: data.description,
-  //         date: data.date,
-  //         userId: user._id,
 
   const handleEditTask = async (event) => {
     event.preventDefault();
@@ -135,7 +120,6 @@ const PopBrowse = () => {
     event.preventDefault();
     try {
       const updatedTask = await removeTask({ id, token: user.token });
-      // const updatedTask = await viewTask({ id, token: user.token });
       setTask(updatedTask);
       navigate("/");
     } catch (err) {
@@ -206,40 +190,24 @@ const PopBrowse = () => {
                 <Calendar
                   onDateChange={(date) => setSelectedDate(date)}
                   deadline={formattedDate(task.date)}
+                  isEditCalendar={isEditCalendar}
                 >
                   Срок исполнения:{" "}
                 </Calendar>
               </PopBrowseWrap>
-              {/* <div className="theme-down__categories theme-down">
-                <CategoriesP>Категория</CategoriesP>
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
-                </div>
-              </div> */}
-
               {!isEditTask ? (
                 <PopBrowseBtnBrowse>
                   <div className="btn-group">
                     <WhiteButton variant="btnBor" onClick={handleEditTask}>
                       Редактировать задачу
                     </WhiteButton>
-                    {/* <button className="btn-browse__edit _btn-bor _hover03">
-                  <a href="#">Редактировать задачу</a>
-                </button> */}
                     <WhiteButton onClick={handleDeleteTask} variant="btnBor">
                       Удалить задачу
                     </WhiteButton>
-                    {/* <button className="btn-browse__delete _btn-bor _hover03">
-                  <a href="#">Удалить задачу</a>
-                </button> */}
                   </div>
                   <Link to="/">
                     <BlueButton variant="btnBg">Закрыть</BlueButton>
                   </Link>
-
-                  {/* <button className="btn-browse__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
-              </button> */}
                 </PopBrowseBtnBrowse>
               ) : (
                 <PopBrowseBtnEdit>
@@ -247,18 +215,12 @@ const PopBrowse = () => {
                     <BlueButton onClick={handleUpdateTask} $btnBor="btnBor">
                       Сохранить
                     </BlueButton>
-                    {/* <button className="btn-edit__edit _btn-bg _hover01">
-                  <a href="#">Сохранить</a>
-                </button> */}
                     <WhiteButton
                       variant="btnBor"
                       onClick={handleCancelEditTask}
                     >
                       Отменить
                     </WhiteButton>
-                    {/* <button className="btn-edit__edit _btn-bor _hover03">
-                  <a href="#">Отменить</a>
-                </button> */}
                     <WhiteButton
                       onClick={handleDeleteTask}
                       variant="btnBor"
@@ -266,22 +228,12 @@ const PopBrowse = () => {
                     >
                       Удалить задачу
                     </WhiteButton>
-                    {/* <button
-                  className="btn-edit__delete _btn-bor _hover03"
-                  id="btnDelete"
-                >
-                  <a href="#">Удалить задачу</a>
-                </button> */}
                   </div>
                   <Link to="/">
                     <BlueButton variant="btnBg" href="#">
                       Закрыть
                     </BlueButton>
                   </Link>
-
-                  {/* <button className="btn-edit__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
-              </button> */}
                 </PopBrowseBtnEdit>
               )}
             </PopBrowseContent>

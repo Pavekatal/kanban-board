@@ -160,7 +160,10 @@ const PopNewCard = () => {
                   />
                 </FormNewBlock>
               </PopNewCardForm>
-              <Calendar onDateChange={(date) => setSelectedDate(date)}>
+              <Calendar
+                onDateChange={(date) => setSelectedDate(date)}
+                isEditCalendar={true}
+              >
                 Выберите срок исполнения.
               </Calendar>
             </PopNewCardWrap>

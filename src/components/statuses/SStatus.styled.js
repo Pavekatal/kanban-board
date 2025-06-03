@@ -22,7 +22,6 @@ export const StatusThemes = styled.div`
 export const StatusTheme = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  /* color: #94a6be; */
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
@@ -40,13 +39,6 @@ export const StatusTheme = styled.div`
     color: #ffffff;
     cursor: ${(props) => (props.$isEdit ? "pointer" : "auto")};
   }
-
-  /* ${(props) =>
-    props.$gray &&
-    css`
-      background: #94a6be;
-      color: #ffffff;
-    `} */
 
   ${(props) =>
     props.$hide &&

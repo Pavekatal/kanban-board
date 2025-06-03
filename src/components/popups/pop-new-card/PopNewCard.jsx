@@ -108,11 +108,8 @@ const PopNewCard = () => {
     // }
     try {
       if (dataToSend) {
-        console.log("dataToSend", dataToSend);
-        console.log("Перед вызовом addNewTask:", { token: user?.token, user });
         await addNewTask({ task: dataToSend, user }); // вызов пост-запроса
         const updatedTasks = await fetchTasks({ token: user.token });
-        console.log("Перед вызовом addNewTask:", { token: user?.token, user });
         setTasks(updatedTasks);
         navigate("/");
       }
@@ -130,11 +127,7 @@ const PopNewCard = () => {
             <PopNewCardTtl>Создание задачи</PopNewCardTtl>
             <LinkClose to="/">&#10006;</LinkClose>
             <PopNewCardWrap>
-              <PopNewCardForm
-                // onSubmit={handleAddNewTask}
-                id="formNewCard"
-                action="#"
-              >
+              <PopNewCardForm id="formNewCard" action="#">
                 <FormNewBlock>
                   <SLabel htmlFor="formTitle">Название задачи</SLabel>
                   <Input

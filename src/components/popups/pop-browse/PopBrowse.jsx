@@ -60,12 +60,12 @@ const PopBrowse = () => {
     const fetchTask = async () => {
       try {
         const data = await viewTask({ id });
-        console.log("Fetched data:", data);
         setTask(data);
         setDataField(data.description);
         setSelectedStatus(data.status);
       } catch (error) {
         console.log("Ошибка при получении данных о задаче:", error);
+        alert("Ошибка при получении данных о задаче");
       }
     };
     fetchTask();
@@ -102,12 +102,9 @@ const PopBrowse = () => {
     };
 
     try {
-      console.log("dataToSend перед запросом updateTask", dataToSend);
-      console.log("Передаваемый id в updateTask", id);
       await updateTask({ id, user, task: dataToSend });
       const updatedTask = await viewTask({ id, token: user.token });
       setTask(updatedTask);
-      console.log("dataToSend после запроса updateTask", dataToSend);
       setIsEditTask(false);
       setError("");
     } catch (err) {

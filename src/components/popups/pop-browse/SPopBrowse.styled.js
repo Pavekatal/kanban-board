@@ -9,7 +9,6 @@ export const SPopBrowse = styled.div`
   top: 0;
   left: 0;
   z-index: 7;
-  /* display: block; */
 
   @media screen and (max-width: 660px) {
     top: 70px;

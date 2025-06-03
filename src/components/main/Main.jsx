@@ -4,13 +4,8 @@ import { MainContent } from "./MainContent.styled";
 import { MainBlock } from "./MainBlock.styled";
 import { Container } from "./Container.styled";
 import { SMain } from "./SMain.styled";
-import LoadingText from "../loading/LoadingText";
-// import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 
 const Main = ({ error }) => {
-  // const { loading } = useContext(AuthContext);
-
   const columnTitles = [
     "Без статуса",
     "Нужно сделать",

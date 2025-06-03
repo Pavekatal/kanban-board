@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { TasksContext } from "../../context/TasksContext.js";
 
 const Column = ({ title, column }) => {
-  const { tasks } = useContext(TasksContext);
+  const { tasks, loading } = useContext(TasksContext);
   const validStatus = [
     "без статуса",
     "нужно сделать",
@@ -15,7 +15,7 @@ const Column = ({ title, column }) => {
     "тестирование",
     "готово",
   ];
-
+  console.log("loading:", loading);
   const statusCheck = tasks.map((task) => {
     if (!validStatus.includes(task.status.toLowerCase())) {
       return { ...task, status: "без статуса" };
@@ -32,7 +32,7 @@ const Column = ({ title, column }) => {
         {statusCheck
           .filter((card) => card.status.toLowerCase() === title.toLowerCase())
           .map((card, index) => (
-            <Card card={card} key={index} />
+            <Card card={card} loading={loading} key={index} />
           ))}
       </Cards>
     </ColumnMain>

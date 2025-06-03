@@ -34,17 +34,11 @@ const PopExit = () => {
               <BlueButton id="exitYes" variant="popExitYes">
                 Да, выйти
               </BlueButton>
-              {/* <button className="pop-exit__exit-yes _hover01" id="exitYes">
-                <a href="modal/signin.html">Да, выйти</a>{" "}
-              </button> */}
               <Link to="/">
                 <WhiteButton id="exitNo" variant="popExitNo">
                   Нет, остаться
                 </WhiteButton>
               </Link>
-              {/* <button className="pop-exit__exit-no _hover03" id="exitNo">
-                <a href="main.html">Нет, остаться</a>{" "}
-              </button> */}
             </PopExitFormGroup>
           </form>
         </PopExitBlock>

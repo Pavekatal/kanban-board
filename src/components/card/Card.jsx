@@ -10,13 +10,9 @@ import { CardTitle } from "./CardTitle.styled";
 import { ThemeCard } from "./ThemeCard.styled";
 import { ThemeCategoryCard } from "./themeCategoryCard.styled";
 import { formattedDate } from "../../utils/formattedDate";
-import { useContext } from "react";
-import { TasksContext } from "../../context/TasksContext";
 import LoaderCard from "../loading/LoaderCard";
 
-const Card = ({ card }) => {
-  const { loading } = useContext(TasksContext);
-
+const Card = ({ card, loading }) => {
   return (
     <CardItem>
       {loading ? (
@@ -36,7 +32,6 @@ const Card = ({ card }) => {
                 <div></div>
               </CardBtn>
             </Link>
-            {/* <a href="#popBrowse" target="_self"></a> */}
           </CardGroup>
           <CardContent>
             <a href="" target="_blank">

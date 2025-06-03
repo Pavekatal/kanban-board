@@ -95,10 +95,7 @@ const AuthForm = ({ isSignUp }) => {
             <AuthFormModalTtl>
               <h2>{isSignUp ? "Регистрация" : "Вход"}</h2>
             </AuthFormModalTtl>
-            <AuthFormLogin
-              onSubmit={handleSubmit}
-              // id={isSignUp ? "formLogUp" : "formLogIn"}
-            >
+            <AuthFormLogin onSubmit={handleSubmit}>
               {isSignUp && (
                 <Input
                   error={errors.name}
@@ -130,7 +127,6 @@ const AuthForm = ({ isSignUp }) => {
               />
               <FillingError>{error}</FillingError>
               <BlueButton
-                // onClick={handleSubmit}
                 id="btnEnter"
                 variant={isSignUp ? "signupEnt" : "enter"}
               >

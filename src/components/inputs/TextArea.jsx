@@ -1,4 +1,4 @@
-import { SLabel, STextArea } from "./SInput.syled";
+import { STextArea } from "./SInput.syled";
 
 const TextArea = ({
   type = "text",

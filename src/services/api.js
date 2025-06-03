@@ -30,20 +30,15 @@ export async function getTask({ id, token }) {
 }
 
 export async function postTask({ token, task }) {
-  console.log("task в пост запросе:", task);
-  console.log("token внутри postTask:", { token, task });
   if (!token) {
     throw new Error("Токен отсутствует");
   }
   try {
     const user = userLS();
-    console.log("Внутри postTask, token:", token);
-
     const requestBody = {
       ...task,
       userId: user._id,
     };
-    console.log("Отправляемые данные:", requestBody);
     const response = await axios.post(API_URL, requestBody, {
       headers: {
         Authorization: "Bearer " + token,
@@ -56,7 +51,6 @@ export async function postTask({ token, task }) {
     }
 
     response.data.tasks || response.data;
-    console.log("Ответ сервера:", response);
   } catch (error) {
     if (error.response && error.response.data) {
       const errorData = error.response.data;

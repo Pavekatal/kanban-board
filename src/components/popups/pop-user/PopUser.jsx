@@ -12,7 +12,6 @@ const PopUser = () => {
 
   return (
     <SPopUser id="user-set-target" $popUserSet={true}>
-      {/* <a href="">x</a> */}
       <PopUserSetName>{user.name}</PopUserSetName>
       <PopUserSetMail>{user.login}</PopUserSetMail>
       <PopUserTheme>
@@ -22,10 +21,6 @@ const PopUser = () => {
       <Link to="/exit">
         <WhiteButton variant="popUserSet">Выйти</WhiteButton>
       </Link>
-
-      {/* <button type="button" className="_hover03">
-        <a href="#popExit">Выйти</a>
-      </button> */}
     </SPopUser>
   );
 };

@@ -73,10 +73,3 @@ export const SWhiteButton = styled.button`
       }
     `}
 `;
-// ._hover03:hover {
-//     background-color: #33399b;
-//     color: #ffffff;
-//   }
-//   ._hover03:hover a {
-//     color: #ffffff;
-//   }

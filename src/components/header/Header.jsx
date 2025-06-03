@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import BlueButton from "../buttons/blue-button/BlueButton";
 import PopUser from "../popups/pop-user/PopUser";
 import Logo from "../logo/Logo";
@@ -8,25 +8,17 @@ import { HeaderBlock } from "./HeaderBlock.styled";
 import { HeaderNav } from "./HeaderNav.styled";
 import { HeaderUser } from "./HeaderUser.styled";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = () => {
   const [openPopUser, setOpenPopUser] = useState(false);
+  const { user } = useContext(AuthContext);
 
   return (
     <SHeader>
       <Container>
         <HeaderBlock>
           <Logo />
-          {/* <div className="header__logo _show _light">
-            <a href="" target="_self">
-              <img src="images/logo.png" alt="logo"></img>
-            </a>
-          </div>
-          <div className="header__logo _dark">
-            <a href="" target="_self">
-              <img src="images/logo_dark.png" alt="logo"></img>
-            </a>
-          </div> */}
           <HeaderNav>
             <Link to="/card/add">
               <BlueButton id="btnMainNew" variant="header">
@@ -36,13 +28,12 @@ const Header = () => {
 
             {openPopUser && <PopUser />}
             <HeaderUser
-              href="#"
               onClick={() => {
                 setOpenPopUser(!openPopUser);
               }}
               $hover02={true}
             >
-              Ivan Ivanov
+              {user.name}
             </HeaderUser>
 
             {/* <a href="#user-set-target" className="header__user _hover02">

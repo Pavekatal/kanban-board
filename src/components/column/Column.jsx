@@ -3,8 +3,11 @@ import Card from "../card/Card";
 import { ColumnTitle } from "./ColumnTitle.styled.js";
 import { Cards } from "./Cards.styled.js";
 import { ColumnMain } from "./ColumnMain.styled.js";
+import { useContext } from "react";
+import { TasksContext } from "../../context/TasksContext.js";
 
-const Column = ({ title, column, tasks }) => {
+const Column = ({ title, column }) => {
+  const { tasks } = useContext(TasksContext);
   const validStatus = [
     "без статуса",
     "нужно сделать",

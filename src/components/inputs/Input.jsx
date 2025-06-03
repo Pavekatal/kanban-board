@@ -6,6 +6,8 @@ export const Input = ({
   name = "",
   placeholder = "",
   error = false,
+  newCardInput,
+  autoFocus = true,
   onChange,
 }) => {
   return (
@@ -16,6 +18,8 @@ export const Input = ({
       placeholder={placeholder}
       $error={error}
       onChange={onChange}
+      $newCardInput={newCardInput}
+      autoFocus={autoFocus}
     />
   );
 };

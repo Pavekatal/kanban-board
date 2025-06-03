@@ -1,6 +1,6 @@
 import { SBlueButton } from "./SBlueButton.styled";
 
-const BlueButton = ({ id, children, variant }) => {
+const BlueButton = ({ id, children, variant, onClick }) => {
   return (
     <SBlueButton
       id={id}
@@ -8,8 +8,10 @@ const BlueButton = ({ id, children, variant }) => {
       $popExitYes={variant === "popExitYes"}
       $enter={variant === "enter"}
       $signupEnt={variant === "signupEnt"}
+      $btnBg={variant === "btnBg"}
+      $newCreate={variant === "newCreate"}
       $hover01={true}
-      // onClick={onClick}
+      onClick={onClick}
     >
       {/* <button className="header__btn-main-new _hover01" id="btnMainNew"> */}
       {/* <a href={href}></a> */}

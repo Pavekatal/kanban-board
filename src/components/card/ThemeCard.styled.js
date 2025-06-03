@@ -4,6 +4,7 @@ export const ThemeCard = styled.div`
   width: auto;
   height: 20px;
   background-color: ${({ $color }) => $color};
+  opacity: ${(props) => (props.$activeCategory ? "1 !important" : "0.4")};
   padding: 5px 14px;
   border-radius: 18px;
 
@@ -21,7 +22,7 @@ export const ThemeCard = styled.div`
       padding: 8px 20px;
       border-radius: 24px;
       margin-right: 7px;
-      opacity: 0.4;
+      /* opacity: 0.4; */
 
       p {
         font-size: 14px;
@@ -29,6 +30,12 @@ export const ThemeCard = styled.div`
         line-height: 14px;
         white-space: nowrap;
       }
+    `}
+
+  ${(props) =>
+    props.$themePopNewCard &&
+    css`
+      cursor: pointer;
     `}
 
   ${(props) =>

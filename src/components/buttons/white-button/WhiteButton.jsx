@@ -1,6 +1,6 @@
 import { SWhiteButton } from "./SWhiteButton.styled";
 
-const WhiteButton = ({ id, children, variant }) => {
+const WhiteButton = ({ id, children, variant, onClick }) => {
   return (
     <SWhiteButton
       id={id}
@@ -9,6 +9,7 @@ const WhiteButton = ({ id, children, variant }) => {
       $popExitNo={variant === "popExitNo"}
       $btnBor={variant === "btnBor"}
       $hover03={true}
+      onClick={onClick}
     >
       {/* <a href={href}>{children}</a> */}
       {/* <a href="#popExit">{children}</a> */}

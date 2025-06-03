@@ -113,4 +113,36 @@ export const SBlueButton = styled.button`
     height: 40px;
     margin-right: 0;
   }
+
+  ${(props) =>
+    props.$btnBg &&
+    css`
+      border-radius: 4px;
+      background: #565eef;
+      border: none;
+      outline: none;
+      color: #ffffff;
+
+      a {
+        color: #ffffff;
+      }
+    `}
+
+  ${(props) =>
+    props.$newCreate &&
+    css`
+      width: 132px;
+      width: 132px;
+      height: 30px;
+      background-color: #565eef;
+      border-radius: 4px;
+      border: 0;
+      line-height: 1;
+      float: right;
+
+      @media screen and (max-width: 495px) {
+        width: 100%;
+        height: 40px;
+      }
+    `}
 `;

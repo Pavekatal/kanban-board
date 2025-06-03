@@ -1,7 +1,8 @@
+import LoaderCard from "../components/loading/LoaderCard";
 import SignIn from "../components/sign-in/SignIn";
 
-const SignInPage = ({ setIsAuth }) => {
-  return <SignIn setIsAuth={setIsAuth} />;
+const SignInPage = () => {
+  return <SignIn />;
 };
 
 export default SignInPage;

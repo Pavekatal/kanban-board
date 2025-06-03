@@ -79,7 +79,7 @@ const AuthForm = ({ isSignUp }) => {
         : await signUp(userData);
 
       if (data) {
-        login(data);
+        login({ ...data, password: null });
         navigate("/");
       }
     } catch (err) {

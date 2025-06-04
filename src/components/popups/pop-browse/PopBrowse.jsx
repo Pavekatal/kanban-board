@@ -38,13 +38,13 @@ import { AuthContext } from "../../../context/AuthContext";
 const PopBrowse = () => {
   const { id } = useParams();
   const [task, setTask] = useState(null);
-  const { viewTask, updateTask, removeTask, error, setError } =
-    useContext(TasksContext);
+  const { viewTask, updateTask, removeTask } = useContext(TasksContext);
   const { user } = useContext(AuthContext);
   const [isEditTask, setIsEditTask] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [dataField, setDataField] = useState(null);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const isEditCalendar = isEditTask;
 
@@ -55,6 +55,14 @@ const PopBrowse = () => {
     "тестирование",
     "готово",
   ];
+
+  const [errors, setErrors] = useState({
+    title: false,
+    topic: false,
+    status: false,
+    description: false,
+    date: false,
+  });
 
   useEffect(() => {
     const fetchTask = async () => {
@@ -70,6 +78,38 @@ const PopBrowse = () => {
     };
     fetchTask();
   }, [viewTask, id]);
+
+  const validateForm = () => {
+    const newErrors = {
+      title: false,
+      topic: false,
+      description: false,
+      date: false,
+    };
+
+    let isValid = true;
+
+    if (!dataField.trim()) {
+      newErrors.description = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
+
+    if (!selectedStatus) {
+      newErrors.topic = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleChange = (event) => {
+    setDataField(event.target.value);
+    setErrors({ ...errors, description: false });
+    setError("");
+  };
 
   const handleEditTask = async (event) => {
     event.preventDefault();
@@ -91,6 +131,10 @@ const PopBrowse = () => {
 
     if (!user || !user.token) {
       setError("Пользователь не авторизован");
+      return;
+    }
+
+    if (!validateForm()) {
       return;
     }
 
@@ -135,7 +179,7 @@ const PopBrowse = () => {
             <PopBrowseContent>
               <PopBrowseTopBlock id={id}>
                 <PopBrowseTtl>{task.title}</PopBrowseTtl>
-                <FillingError>{error}</FillingError>
+
                 <ThemeCard
                   $themePopCard="themePopCard"
                   $activeCategory="activeCategory"
@@ -175,12 +219,14 @@ const PopBrowse = () => {
                   <PopBrowseFormBlock>
                     <SLabel htmlFor="textArea01">Описание задачи</SLabel>
                     <TextArea
+                      error={errors.description}
                       name="description"
                       id="textArea01"
                       readOnly={!isEditTask}
                       placeholder="Введите описание задачи..."
                       value={dataField}
-                      onChange={(event) => setDataField(event.target.value)}
+                      // onChange={(event) => setDataField(event.target.value)}
+                      onChange={handleChange}
                     ></TextArea>
                   </PopBrowseFormBlock>
                 </PopBrowseForm>
@@ -192,6 +238,7 @@ const PopBrowse = () => {
                   Срок исполнения:{" "}
                 </Calendar>
               </PopBrowseWrap>
+              <FillingError>{error}</FillingError>
               {!isEditTask ? (
                 <PopBrowseBtnBrowse>
                   <div className="btn-group">

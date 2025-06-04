@@ -30,11 +30,12 @@ const TasksProvider = ({ children }) => {
         setLoading(false);
       }
     };
-    loadTasks();
-  }, [user.token]);
+    if (user) loadTasks();
+  }, [user]);
 
   const viewTask = useCallback(
     async ({ id }) => {
+      if (!user) return;
       setLoading(true);
       try {
         const dataTask = await getTask({ id, token: user.token });
@@ -52,7 +53,7 @@ const TasksProvider = ({ children }) => {
         setLoading(false);
       }
     },
-    [user.token]
+    [user]
   );
 
   const addNewTask = async ({ task }) => {
@@ -70,7 +71,7 @@ const TasksProvider = ({ children }) => {
     } catch (err) {
       setError(err.message);
       console.error("Не удалось добавить задачу:", err);
-      alert("Не удалось добавить задачу");
+      alert("Не удалось добавить задачу", err);
     } finally {
       setLoading(false);
     }
@@ -85,7 +86,7 @@ const TasksProvider = ({ children }) => {
     } catch (err) {
       setError(err.message);
       console.error("Не удалось изменить задачу:", err.message);
-      alert("Не удалось изменить задачу");
+      alert("Не удалось изменить задачу", err);
     } finally {
       setLoading(false);
     }
@@ -100,7 +101,7 @@ const TasksProvider = ({ children }) => {
     } catch (err) {
       setError(err.message);
       console.error("Не удалось удалить задачу:", err.message);
-      alert("Не удалось удалить задачу");
+      alert("Не удалось удалить задачу", err);
     } finally {
       setLoading(false);
     }

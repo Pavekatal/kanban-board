@@ -36,6 +36,8 @@ const CalendarTitle = styled.p`
 
 const CalendarBlock = styled.div`
   display: block;
+  border-radius: 8px;
+  border: ${(props) => (!props.$error ? "none" : "0.7px solid rgb(255, 0, 0)")};
 `;
 
 const CalendarMonth = styled.div`
@@ -179,7 +181,13 @@ const NavAction = styled.div`
 `;
 
 // Основной компонент
-const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
+const Calendar = ({
+  children,
+  deadline,
+  onDateChange,
+  isEditCalendar,
+  error = false,
+}) => {
   const [currentMonth, setCurrentMonth] = useState(() => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth());
@@ -271,7 +279,7 @@ const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
   return (
     <CalendarWrapper>
       <CalendarTitle>Даты</CalendarTitle>
-      <CalendarBlock>
+      <CalendarBlock $error={error}>
         <Nav>
           <CalendarMonth>{monthYearStr}</CalendarMonth>
           <NavActions>

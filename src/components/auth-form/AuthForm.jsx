@@ -17,6 +17,8 @@ const AuthForm = ({ isSignUp }) => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
+  console.log("isSignUp:", isSignUp);
+
   const [userData, setUserData] = useState({
     name: "",
     login: "",
@@ -95,7 +97,10 @@ const AuthForm = ({ isSignUp }) => {
             <AuthFormModalTtl>
               <h2>{isSignUp ? "Регистрация" : "Вход"}</h2>
             </AuthFormModalTtl>
-            <AuthFormLogin onSubmit={handleSubmit}>
+            <AuthFormLogin
+              onSubmit={handleSubmit}
+              id={isSignUp ? "formLogUp" : "formLogIn"}
+            >
               {isSignUp && (
                 <Input
                   error={errors.name}
@@ -124,6 +129,7 @@ const AuthForm = ({ isSignUp }) => {
                 placeholder="Пароль"
                 value={userData.password}
                 onChange={handleChange}
+                autoComplete
               />
               <FillingError>{error}</FillingError>
               <BlueButton

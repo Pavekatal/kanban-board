@@ -13,6 +13,7 @@ import { formattedDate } from "../../utils/formattedDate";
 import LoaderCard from "../loading/LoaderCard";
 
 const Card = ({ card, loading }) => {
+  console.log("loading from Card:", loading);
   return (
     <CardItem>
       {loading ? (

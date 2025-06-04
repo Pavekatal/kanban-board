@@ -35,8 +35,8 @@ const PopNewCard = () => {
   const currentDateISO = new Date().toISOString();
 
   const [dataField, setDataField] = useState({
-    title: "Новая задача по умолчанию",
-    topic: "Research",
+    title: "",
+    topic: "",
     status: "Без статуса",
     description: "",
     date: currentDateISO,
@@ -50,32 +50,48 @@ const PopNewCard = () => {
     date: false,
   });
 
-  const { addNewTask, setTasks, error, setError } = useContext(TasksContext);
+  const [error, setError] = useState("");
+
+  const { addNewTask, setTasks } = useContext(TasksContext);
   const { user } = useContext(AuthContext);
 
-  // const validateForm = () => {
-  //   const newErrors = {
-  //     title: false,
-  //     topic: false,
-  //     date: false,
-  //   };
+  const validateForm = () => {
+    const newErrors = {
+      title: false,
+      topic: false,
+      description: false,
+      date: false,
+    };
 
-  //   let isValid = true;
+    let isValid = true;
 
-  //   if (!dataField.title.trim()) {
-  //     newErrors.title = true;
-  //     setError("Заполните все поля");
-  //     isValid = false;
-  //   }
+    if (!dataField.title.trim()) {
+      newErrors.title = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
 
-  //   if (!selectedDate) {
-  //     newErrors.date = true;
-  //     setError("Укажите срок исполнения");
-  //     isValid = false;
-  //   }
+    if (!dataField.description.trim()) {
+      newErrors.description = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
 
-  //   return isValid;
-  // };
+    if (!selectedDate) {
+      newErrors.date = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
+
+    if (!selectedTheme) {
+      newErrors.topic = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSelectedTheme = (theme) => {
     setSelectedTheme(theme);
@@ -89,10 +105,21 @@ const PopNewCard = () => {
     setError("");
   };
 
+  const handleChangeDate = (date) => {
+    setSelectedDate(date);
+    setErrors({ ...errors, date: false });
+    setError("");
+  };
+
   const handleAddNewTask = async (e) => {
     e.preventDefault();
+
     if (!user || !user.token) {
       setError("Пользователь не авторизован");
+      return;
+    }
+
+    if (!validateForm()) {
       return;
     }
 
@@ -103,9 +130,6 @@ const PopNewCard = () => {
       userId: user._id,
     };
 
-    // if (!validateForm()) {
-    //   return;
-    // }
     try {
       if (dataToSend) {
         await addNewTask({ task: dataToSend, user }); // вызов пост-запроса
@@ -131,6 +155,7 @@ const PopNewCard = () => {
                 <FormNewBlock>
                   <SLabel htmlFor="formTitle">Название задачи</SLabel>
                   <Input
+                    error={errors.title}
                     newCardInput="newCardInput"
                     type="text"
                     name="title"
@@ -144,6 +169,7 @@ const PopNewCard = () => {
                 <FormNewBlock>
                   <SLabel htmlFor="textArea">Описание задачи</SLabel>
                   <TextArea
+                    error={errors.description}
                     newCardTextArea="newCardTextArea"
                     name="description"
                     id="textArea"
@@ -154,8 +180,9 @@ const PopNewCard = () => {
                 </FormNewBlock>
               </PopNewCardForm>
               <Calendar
-                onDateChange={(date) => setSelectedDate(date)}
+                onDateChange={handleChangeDate}
                 isEditCalendar={true}
+                error={errors.date}
               >
                 Выберите срок исполнения.
               </Calendar>

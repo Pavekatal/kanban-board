@@ -20,6 +20,7 @@ export const Input = ({
       onChange={onChange}
       $newCardInput={newCardInput}
       autoFocus={autoFocus}
+      autoComplete="current-password"
     />
   );
 };

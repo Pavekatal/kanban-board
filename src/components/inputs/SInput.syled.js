@@ -4,7 +4,10 @@ export const SInput = styled.input`
   width: 100%;
   min-width: 100%;
   border-radius: 8px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: ${(props) =>
+    !props.$error
+      ? "0.7px solid rgba(148, 166, 190, 0.4)"
+      : "0.7px solid rgb(255, 0, 0)"};
   outline: none;
   padding: ${(props) => (!props.$newCardInput ? "10px 8px" : "14px")};
 
@@ -59,7 +62,10 @@ export const STextArea = styled.textarea`
   outline: none;
   padding: 14px;
   background: #eaeef6;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: ${(props) =>
+    !props.$error
+      ? "0.7px solid rgba(148, 166, 190, 0.4)"
+      : "0.7px solid rgb(255, 0, 0)"};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;

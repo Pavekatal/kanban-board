@@ -15,4 +15,5 @@ export const SNotFoundText = styled.p`
   font-weight: 600;
   line-height: 1;
   text-transform: uppercase;
+  margin-bottom: 10px;
 `;

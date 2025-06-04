@@ -4,4 +4,5 @@ export const FillingError = styled.p`
   color: red;
   font-size: 14px;
   margin: 2px;
+  margin-bottom: 13px;
 `;

@@ -16,7 +16,6 @@ const Column = ({ title, column }) => {
     "тестирование",
     "готово",
   ];
-  console.log("loading from Column:", loading);
 
   const emptyTasksList = !tasks || tasks.length === 0;
 

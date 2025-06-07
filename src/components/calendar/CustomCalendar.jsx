@@ -28,7 +28,7 @@ const CalendarWrapper = styled.div`
 const CalendarTitle = styled.p`
   margin-bottom: 14px;
   padding: 0 7px;
-  color: #000;
+  color: ${({ theme }) => theme.colorSubTtl}; //#000;
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -62,7 +62,7 @@ const CalendarP = styled.p`
   line-height: 1;
 
   span {
-    color: #000000;
+    color: ${({ theme }) => theme.colorCalendarPSpan}; //#000000;
   }
 
   @media screen and (max-width: 660px) {
@@ -138,7 +138,7 @@ const Cell = styled.div.withConfig({
 
   &:hover {
     color: #94a6be;
-    background-color: #eaeef6;
+    background-color: ${({ theme }) => theme.bgcHoverCellDay};
   }
 
   @media screen and (max-width: 660px) {

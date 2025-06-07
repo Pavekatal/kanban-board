@@ -26,11 +26,13 @@ import { FillingError } from "../../auth-form/AuthError.styled";
 import { useNavigate } from "react-router-dom";
 import { fetchTasks } from "../../../services/api";
 import { AuthContext } from "../../../context/AuthContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const PopNewCard = () => {
   const themes = ["Web Design", "Research", "Copywriting"];
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState(themes[0]);
+  const { isDark } = useContext(ThemeContext);
   const [selectedDate, setSelectedDate] = useState(null);
   const currentDateISO = new Date().toISOString();
 
@@ -196,10 +198,17 @@ const PopNewCard = () => {
                     $themePopCard="themePopCard"
                     $themePopNewCard="themePopNewCard"
                     $activeCategory={theme === selectedTheme}
-                    $color={themesBgColors[theme]}
+                    $color={
+                      isDark ? themesColors[theme] : themesBgColors[theme]
+                    }
                     onClick={() => handleSelectedTheme(theme)}
                   >
-                    <ThemeCategoryCard key={theme} $color={themesColors[theme]}>
+                    <ThemeCategoryCard
+                      key={theme}
+                      $color={
+                        isDark ? themesBgColors[theme] : themesColors[theme]
+                      }
+                    >
                       {theme}
                     </ThemeCategoryCard>
                   </ThemeCard>

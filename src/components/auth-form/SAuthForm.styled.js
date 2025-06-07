@@ -5,5 +5,5 @@ export const SAuthForm = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #eaeef6;
+  background-color: ${({ theme }) => theme.bgcAuthFormWrapper};
 `;

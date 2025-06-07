@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SLoaderCard = styled.div`
   width: 220px;
   height: 130px;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.bgcLoaderCard};
   border-radius: 10px;
   padding: 15px 17px 19px 13px;
 `;

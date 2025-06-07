@@ -8,7 +8,7 @@ export const HeaderUser = styled.a`
   justify-content: center;
   font-size: 14px;
   line-height: 20px;
-  color: #565eef;
+  color: ${({ theme }) => theme.colorHeaderUser};
 
   ${(props) =>
     props.$hover02 &&
@@ -17,8 +17,8 @@ export const HeaderUser = styled.a`
         color: #33399b;
 
         &::after {
-          border-left-color: #33399b;
-          border-bottom-color: #33399b;
+          border-left-color: ${({ theme }) => theme.bdlHeaderUserAfter};
+          border-bottom-color: ${({ theme }) => theme.bdlHeaderUserAfter};
         }
       }
     `}
@@ -29,8 +29,8 @@ export const HeaderUser = styled.a`
     width: 6px;
     height: 6px;
     border-radius: 1px;
-    border-left: 1.9px solid #565eef;
-    border-bottom: 1.9px solid #565eef;
+    border-left: ${({ theme }) => theme.bdHeaderUserAfter};
+    border-bottom: ${({ theme }) => theme.bdHeaderUserAfter};
     transform: rotate(-45deg);
     margin: -6px 0 0 5px;
     padding: 0;

@@ -11,9 +11,12 @@ import { ThemeCard } from "./ThemeCard.styled";
 import { ThemeCategoryCard } from "./themeCategoryCard.styled";
 import { formattedDate } from "../../utils/formattedDate";
 import LoaderCard from "../loading/LoaderCard";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Card = ({ card, loading }) => {
-  console.log("loading from Card:", loading);
+  const { isDark } = useContext(ThemeContext);
+
   return (
     <CardItem>
       {loading ? (
@@ -21,8 +24,19 @@ const Card = ({ card, loading }) => {
       ) : (
         <CardsCard $card={card}>
           <CardGroup>
-            <ThemeCard $color={themesBgColors[card?.topic]} $activeCategory>
-              <ThemeCategoryCard $color={themesColors[card?.topic]}>
+            <ThemeCard
+              $color={
+                isDark ? themesColors[card?.topic] : themesBgColors[card?.topic]
+              }
+              $activeCategory
+            >
+              <ThemeCategoryCard
+                $color={
+                  isDark
+                    ? themesBgColors[card?.topic]
+                    : themesColors[card?.topic]
+                }
+              >
                 {card.topic}
               </ThemeCategoryCard>
             </ThemeCard>

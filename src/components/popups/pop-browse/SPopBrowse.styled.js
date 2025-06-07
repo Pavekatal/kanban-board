@@ -24,7 +24,7 @@ export const PopBrowseContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${({ theme }) => theme.bgPopupContainer};
 
   @media screen and (max-width: 660px) {
     padding: 0;
@@ -35,12 +35,12 @@ export const PopBrowseContainer = styled.div`
 export const PopBrowseBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.bgcPopupBlock};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: ${({ theme }) => theme.bdPopupBlock};
   position: relative;
 
   @media screen and (max-width: 660px) {
@@ -89,7 +89,7 @@ export const PopBrowseTopBlock = styled.div`
 `;
 
 export const PopBrowseTtl = styled.h3`
-  color: #000;
+  color: ${({ theme }) => theme.colorPopupTtl};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;

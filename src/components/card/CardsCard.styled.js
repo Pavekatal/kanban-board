@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const CardsCard = styled.div`
   width: 220px;
   height: 130px;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.bgcCardsCard};
   border-radius: 10px;
   display: flex;
   flex-direction: column;

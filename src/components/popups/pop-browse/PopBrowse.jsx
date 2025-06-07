@@ -34,6 +34,7 @@ import { SLabel } from "../../inputs/SInput.syled";
 import TextArea from "../../inputs/TextArea";
 import { formattedDate } from "../../../utils/formattedDate";
 import { AuthContext } from "../../../context/AuthContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const PopBrowse = () => {
   const { id } = useParams();
@@ -47,6 +48,7 @@ const PopBrowse = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const isEditCalendar = isEditTask;
+  const { isDark } = useContext(ThemeContext);
 
   const statuses = [
     "без статуса",
@@ -183,9 +185,19 @@ const PopBrowse = () => {
                 <ThemeCard
                   $themePopCard="themePopCard"
                   $activeCategory="activeCategory"
-                  $color={themesBgColors[task.topic]}
+                  $color={
+                    isDark
+                      ? themesColors[task.topic]
+                      : themesBgColors[task.topic]
+                  }
                 >
-                  <ThemeCategoryCard $color={themesColors[task.topic]}>
+                  <ThemeCategoryCard
+                    $color={
+                      isDark
+                        ? themesBgColors[task.topic]
+                        : themesColors[task.topic]
+                    }
+                  >
                     {task.topic}
                   </ThemeCategoryCard>
                 </ThemeCard>
@@ -194,7 +206,12 @@ const PopBrowse = () => {
                 <StatusP>Статус</StatusP>
                 <StatusThemes>
                   {!isEditTask ? (
-                    <StatusTheme $isActive={true} $gray="gray">
+                    <StatusTheme
+                      $isActive={true}
+                      $isDark={isDark}
+                      $isEditTask={isEditTask}
+                      $gray="gray"
+                    >
                       <StatusThemeP>{task.status}</StatusThemeP>
                     </StatusTheme>
                   ) : (
@@ -206,6 +223,7 @@ const PopBrowse = () => {
                           status.toLocaleLowerCase() ===
                           selectedStatus.toLowerCase()
                         }
+                        $isDark={isDark}
                         onClick={() => handleSelectedStatus(status)}
                       >
                         <p>{status}</p>
@@ -223,9 +241,10 @@ const PopBrowse = () => {
                       name="description"
                       id="textArea01"
                       readOnly={!isEditTask}
+                      $isDark={isDark}
+                      $isEditTask={isEditTask}
                       placeholder="Введите описание задачи..."
                       value={dataField}
-                      // onChange={(event) => setDataField(event.target.value)}
                       onChange={handleChange}
                     ></TextArea>
                   </PopBrowseFormBlock>

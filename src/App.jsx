@@ -3,6 +3,7 @@ import AppRoutes from "./components/AppRoutes";
 import AuthProvider from "./context/AuthProvider";
 import { GlobalStyle } from "./GlobalStyle.style";
 import TasksProvider from "./context/TasksProvider";
+import ThemeProviderCustom from "./context/ThemeProvider";
 
 function AppWrapper() {
   return (
@@ -15,9 +16,11 @@ function AppWrapper() {
 
 function App() {
   return (
-    <AuthProvider>
-      <AppWrapper />
-    </AuthProvider>
+    <ThemeProviderCustom>
+      <AuthProvider>
+        <AppWrapper />
+      </AuthProvider>
+    </ThemeProviderCustom>
   );
 }
 

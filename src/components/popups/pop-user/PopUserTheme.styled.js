@@ -7,7 +7,7 @@ export const PopUserTheme = styled.div`
   margin-bottom: 30px;
 
   p {
-    color: #000;
+    color: ${({ theme }) => theme.colorPopUserSet};
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.14px;
@@ -33,7 +33,7 @@ export const PopUserTheme = styled.div`
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background-color: #94a6be;
+    background-color: ${({ theme }) => theme.inputBeforeBgcPopUserSet};
     transition: 0.5s;
   }
 

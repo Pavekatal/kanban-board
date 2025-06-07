@@ -6,9 +6,11 @@ import { PopUserTheme } from "./PopUserTheme.styled";
 import { SPopUser } from "./SPopUser.styled";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const PopUser = () => {
   const { user } = useContext(AuthContext);
+  const { isDark, toggleTheme } = useContext(ThemeContext);
 
   return (
     <SPopUser id="user-set-target" $popUserSet={true}>
@@ -16,7 +18,13 @@ const PopUser = () => {
       <PopUserSetMail>{user.login}</PopUserSetMail>
       <PopUserTheme>
         <p>Темная тема</p>
-        <input type="checkbox" className="checkbox" name="checkbox"></input>
+        <input
+          onChange={toggleTheme}
+          type="checkbox"
+          checked={isDark}
+          className="checkbox"
+          name="checkbox"
+        ></input>
       </PopUserTheme>
       <Link to="/exit">
         <WhiteButton variant="popUserSet">Выйти</WhiteButton>

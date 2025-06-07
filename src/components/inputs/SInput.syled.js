@@ -71,14 +71,7 @@ export const STextArea = styled.textarea`
       : "transparent"};
   border: ${(props) => {
     const { $isDark, $isEditTask, $error } = props;
-    console.log(
-      "$isDark:",
-      $isDark,
-      "$isEditTask;",
-      $isEditTask,
-      "$error:",
-      $error
-    );
+
     if (!$isDark && !$isEditTask && !$error) {
       return "0.7px solid rgba(148, 166, 190, 0.4)";
     }

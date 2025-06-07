@@ -8,6 +8,7 @@ import {
   getTask,
   postTask,
 } from "../services/api";
+import { toast } from "react-toastify";
 
 const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
@@ -25,7 +26,7 @@ const TasksProvider = ({ children }) => {
       } catch (err) {
         setError(err.message);
         console.error("Не удалось получить список задач:", err.message);
-        alert("Не удалось получить список задач");
+        toast.error("Не удалось получить список задач");
       } finally {
         setLoading(false);
       }
@@ -44,7 +45,7 @@ const TasksProvider = ({ children }) => {
       } catch (err) {
         setError(err.message);
         console.error("Не удалось получить информацию по задаче:", err.message);
-        alert("Не удалось получить информацию по задаче");
+        toast.error("Не удалось получить информацию по задаче");
         throw new Error(
           "Не удалось получить информацию по задаче:",
           err.message
@@ -67,11 +68,11 @@ const TasksProvider = ({ children }) => {
         task,
       });
       if (newTask) setTasks(newTask);
-      alert("Задача успешно добавлена");
+      toast.success("Задача успешно добавлена");
     } catch (err) {
       setError(err.message);
       console.error("Не удалось добавить задачу:", err);
-      alert("Не удалось добавить задачу", err);
+      toast.error("Не удалось добавить задачу", err);
     } finally {
       setLoading(false);
     }
@@ -82,11 +83,11 @@ const TasksProvider = ({ children }) => {
     try {
       const changeTask = await editTask({ token: user.token, id, task });
       if (changeTask) setTasks(changeTask);
-      alert("Изменения сохранены");
+      toast.success("Изменения сохранены");
     } catch (err) {
       setError(err.message);
       console.error("Не удалось изменить задачу:", err.message);
-      alert("Не удалось изменить задачу", err);
+      toast.error("Не удалось изменить задачу", err);
     } finally {
       setLoading(false);
     }
@@ -97,11 +98,11 @@ const TasksProvider = ({ children }) => {
     try {
       const remoteTask = await deleteTask({ token: user.token, id });
       if (remoteTask) setTasks(remoteTask);
-      alert("Задача удалена");
+      toast.success("Задача удалена");
     } catch (err) {
       setError(err.message);
       console.error("Не удалось удалить задачу:", err.message);
-      alert("Не удалось удалить задачу", err);
+      toast.error("Не удалось удалить задачу", err);
     } finally {
       setLoading(false);
     }

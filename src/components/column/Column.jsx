@@ -1,4 +1,3 @@
-// import { cardList } from "../data.js";
 import Card from "../card/Card";
 import { ColumnTitle } from "./ColumnTitle.styled.js";
 import { Cards } from "./Cards.styled.js";
@@ -17,7 +16,7 @@ const Column = ({ title, column }) => {
     "готово",
   ];
 
-  const emptyTasksList = !tasks || tasks.length === 0;
+  const emptyTasksList = !loading && (!tasks || tasks.length === 0);
 
   const statusCheck = tasks.map((task) => {
     if (!validStatus.includes(task.status.toLowerCase())) {

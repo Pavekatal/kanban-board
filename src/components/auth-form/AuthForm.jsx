@@ -17,8 +17,6 @@ const AuthForm = ({ isSignUp }) => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  console.log("isSignUp:", isSignUp);
-
   const [userData, setUserData] = useState({
     name: "",
     login: "",

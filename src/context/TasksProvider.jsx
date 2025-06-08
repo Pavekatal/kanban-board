@@ -46,10 +46,6 @@ const TasksProvider = ({ children }) => {
         setError(err.message);
         console.error("Не удалось получить информацию по задаче:", err.message);
         toast.error("Не удалось получить информацию по задаче");
-        throw new Error(
-          "Не удалось получить информацию по задаче:",
-          err.message
-        );
       } finally {
         setLoading(false);
       }
@@ -99,10 +95,12 @@ const TasksProvider = ({ children }) => {
       const remoteTask = await deleteTask({ token: user.token, id });
       if (remoteTask) setTasks(remoteTask);
       toast.success("Задача удалена");
+      return remoteTask;
     } catch (err) {
       setError(err.message);
       console.error("Не удалось удалить задачу:", err.message);
       toast.error("Не удалось удалить задачу", err);
+      throw err;
     } finally {
       setLoading(false);
     }

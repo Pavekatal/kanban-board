@@ -75,7 +75,6 @@ const PopBrowse = () => {
         setSelectedStatus(data.status);
       } catch (error) {
         console.log("Ошибка при получении данных о задаче:", error);
-        alert("Ошибка при получении данных о задаче");
       }
     };
     fetchTask();
@@ -164,10 +163,12 @@ const PopBrowse = () => {
     try {
       const updatedTask = await removeTask({ id, token: user.token });
       setTask(updatedTask);
+      console.log("Удаление прошло успешно, переходим...");
       navigate("/");
     } catch (err) {
       setError(err.message);
-      console.log(err.message);
+      console.log("ошибка при удалении получилась:", err.message);
+      return;
     }
   };
 

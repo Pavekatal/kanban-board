@@ -24,7 +24,6 @@ import BlueButton from "../../buttons/blue-button/BlueButton";
 import { TasksContext } from "../../../context/TasksContext";
 import { FillingError } from "../../auth-form/AuthError.styled";
 import { useNavigate } from "react-router-dom";
-import { fetchTasks } from "../../../services/api";
 import { AuthContext } from "../../../context/AuthContext";
 import { ThemeContext } from "../../../context/ThemeContext";
 
@@ -54,7 +53,7 @@ const PopNewCard = () => {
 
   const [error, setError] = useState("");
 
-  const { addNewTask, setTasks } = useContext(TasksContext);
+  const { addNewTask } = useContext(TasksContext);
   const { user } = useContext(AuthContext);
 
   const validateForm = () => {
@@ -134,9 +133,8 @@ const PopNewCard = () => {
 
     try {
       if (dataToSend) {
-        await addNewTask({ task: dataToSend, user }); // вызов пост-запроса
-        const updatedTasks = await fetchTasks({ token: user.token });
-        setTasks(updatedTasks);
+        const updatedTasks = await addNewTask({ task: dataToSend, user });
+        console.log("updatedTasks", updatedTasks);
         navigate("/");
       }
     } catch (err) {

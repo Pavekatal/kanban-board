@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { TasksContext } from "./TasksContext";
 import { AuthContext } from "./AuthContext";
 import {
@@ -17,27 +17,24 @@ const TasksProvider = ({ children }) => {
   const [error, setError] = useState("");
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    const loadTasks = async () => {
-      setLoading(true);
-      try {
-        const dataTasks = await fetchTasks({ token: user.token });
-        if (dataTasks) setTasks(dataTasks);
-      } catch (err) {
-        setError(err.message);
-        console.error("Не удалось получить список задач:", err.message);
-        toast.error("Не удалось получить список задач");
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (user) loadTasks();
+  const getTasks = useCallback(async () => {
+    console.log("getTasks вызван");
+    setLoading(true);
+    try {
+      const dataTasks = await fetchTasks({ token: user.token });
+      if (dataTasks) setTasks(dataTasks);
+      return dataTasks;
+    } catch (err) {
+      setError(err.message);
+      console.error("Не удалось получить список задач:", err.message);
+      toast.error("Не удалось получить список задач");
+    } finally {
+      setLoading(false);
+    }
   }, [user]);
 
   const viewTask = useCallback(
     async ({ id }) => {
-      if (!user) return;
-      setLoading(true);
       try {
         const dataTask = await getTask({ id, token: user.token });
         if (dataTask) setTaskData(dataTask);
@@ -59,12 +56,14 @@ const TasksProvider = ({ children }) => {
       if (!user || !user.token) {
         throw new Error("Нет токена пользователя");
       }
-      const newTask = await postTask({
+      const newTasks = await postTask({
         token: user.token,
         task,
       });
-      if (newTask) setTasks(newTask);
+      if (newTasks) setTasks(newTasks);
+
       toast.success("Задача успешно добавлена");
+      return newTasks;
     } catch (err) {
       setError(err.message);
       console.error("Не удалось добавить задачу:", err);
@@ -114,6 +113,7 @@ const TasksProvider = ({ children }) => {
         taskData,
         loading,
         setLoading,
+        getTasks,
         viewTask,
         addNewTask,
         updateTask,

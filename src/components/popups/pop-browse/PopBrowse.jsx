@@ -68,14 +68,10 @@ const PopBrowse = () => {
 
   useEffect(() => {
     const fetchTask = async () => {
-      try {
-        const data = await viewTask({ id });
-        setTask(data);
-        setDataField(data.description);
-        setSelectedStatus(data.status);
-      } catch (error) {
-        console.log("Ошибка при получении данных о задаче:", error);
-      }
+      const data = await viewTask({ id });
+      setTask(data);
+      setDataField(data.description);
+      setSelectedStatus(data.status);
     };
     fetchTask();
   }, [viewTask, id]);
@@ -129,11 +125,6 @@ const PopBrowse = () => {
 
   const handleUpdateTask = async (event) => {
     event.preventDefault();
-
-    if (!user || !user.token) {
-      setError("Пользователь не авторизован");
-      return;
-    }
 
     if (!validateForm()) {
       return;

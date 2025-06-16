@@ -50,7 +50,7 @@ export async function postTask({ token, task }) {
       return [];
     }
 
-    response.data.tasks || response.data;
+    return response.data.tasks || response.data;
   } catch (error) {
     if (error.response && error.response.data) {
       const errorData = error.response.data;

@@ -1,21 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { userLS } from "../utils/UsersLS";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(userLS());
-
-  useEffect(() => {
-    try {
-      const savedUser = localStorage.getItem("userInfo");
-
-      if (savedUser) {
-        setUser(JSON.parse(savedUser));
-      }
-    } catch (err) {
-      console.error("Ошибка получения данных пользователя из LS:", err.message);
-    }
-  }, []);
 
   const updateUserInfo = (userData) => {
     setUser(userData);
@@ -37,7 +25,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, updateUserInfo, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

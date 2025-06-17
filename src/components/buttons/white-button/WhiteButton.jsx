@@ -11,8 +11,6 @@ const WhiteButton = ({ id, children, variant, onClick }) => {
       $hover03={true}
       onClick={onClick}
     >
-      {/* <a href={href}>{children}</a> */}
-      {/* <a href="#popExit">{children}</a> */}
       {children}
     </SWhiteButton>
   );

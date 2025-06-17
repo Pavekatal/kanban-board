@@ -4,9 +4,14 @@ export const SInput = styled.input`
   width: 100%;
   min-width: 100%;
   border-radius: 8px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  background: transparent;
+  border: ${(props) =>
+    !props.$error
+      ? "0.7px solid rgba(148, 166, 190, 0.4)"
+      : "0.7px solid rgb(255, 0, 0)"};
   outline: none;
   padding: ${(props) => (!props.$newCardInput ? "10px 8px" : "14px")};
+  color: inherit;
 
   &::-moz-placeholder {
     font-family: "Roboto", sans-serif;
@@ -58,14 +63,50 @@ export const STextArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  background: ${(props) =>
+    !props.$isEditTask
+      ? props.$isDark
+        ? "#151419"
+        : "#EAEEF6"
+      : "transparent"};
+  border: ${(props) => {
+    const { $isDark, $isEditTask, $error } = props;
+
+    if (!$isDark && !$isEditTask && !$error) {
+      return "0.7px solid rgba(148, 166, 190, 0.4)";
+    }
+
+    if (!$isDark && !$isEditTask && $error) {
+      return "0.7px solid rgb(255, 0, 0)";
+    }
+
+    if (!$isDark && $isEditTask && !$error) {
+      return "0.7px solid rgba(148, 166, 190, 0.4)";
+    }
+
+    if (!$isDark && $isEditTask && $error) {
+      return "0.7px solid rgb(255, 0, 0)";
+    }
+
+    if ($isDark && !$isEditTask && !$error) {
+      return "none";
+    }
+
+    if ($isDark && $isEditTask && !$error) {
+      return "0.7px solid rgba(148, 166, 190, 0.4)";
+    }
+
+    if ($isDark && $isEditTask && $error) {
+      return "0.7px solid rgb(255, 0, 0)";
+    }
+  }};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
+  color: ${({ theme }) => theme.colorSubTtl};
 
   &::-moz-placeholder {
     font-weight: 400;
@@ -97,7 +138,7 @@ export const STextArea = styled.textarea`
 `;
 
 export const SLabel = styled.label`
-  color: #000;
+  color: ${({ theme }) => theme.colorSubTtl};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;

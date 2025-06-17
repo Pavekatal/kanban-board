@@ -24,19 +24,20 @@ import BlueButton from "../../buttons/blue-button/BlueButton";
 import { TasksContext } from "../../../context/TasksContext";
 import { FillingError } from "../../auth-form/AuthError.styled";
 import { useNavigate } from "react-router-dom";
-import { fetchTasks } from "../../../services/api";
 import { AuthContext } from "../../../context/AuthContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const PopNewCard = () => {
   const themes = ["Web Design", "Research", "Copywriting"];
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState(themes[0]);
+  const { isDark } = useContext(ThemeContext);
   const [selectedDate, setSelectedDate] = useState(null);
   const currentDateISO = new Date().toISOString();
 
   const [dataField, setDataField] = useState({
-    title: "Новая задача по умолчанию",
-    topic: "Research",
+    title: "",
+    topic: "",
     status: "Без статуса",
     description: "",
     date: currentDateISO,
@@ -50,32 +51,48 @@ const PopNewCard = () => {
     date: false,
   });
 
-  const { addNewTask, setTasks, error, setError } = useContext(TasksContext);
+  const [error, setError] = useState("");
+
+  const { addNewTask } = useContext(TasksContext);
   const { user } = useContext(AuthContext);
 
-  // const validateForm = () => {
-  //   const newErrors = {
-  //     title: false,
-  //     topic: false,
-  //     date: false,
-  //   };
+  const validateForm = () => {
+    const newErrors = {
+      title: false,
+      topic: false,
+      description: false,
+      date: false,
+    };
 
-  //   let isValid = true;
+    let isValid = true;
 
-  //   if (!dataField.title.trim()) {
-  //     newErrors.title = true;
-  //     setError("Заполните все поля");
-  //     isValid = false;
-  //   }
+    if (!dataField.title.trim()) {
+      newErrors.title = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
 
-  //   if (!selectedDate) {
-  //     newErrors.date = true;
-  //     setError("Укажите срок исполнения");
-  //     isValid = false;
-  //   }
+    if (!dataField.description.trim()) {
+      newErrors.description = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
 
-  //   return isValid;
-  // };
+    if (!selectedDate) {
+      newErrors.date = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
+
+    if (!selectedTheme) {
+      newErrors.topic = true;
+      setError("Укажите все данные");
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSelectedTheme = (theme) => {
     setSelectedTheme(theme);
@@ -89,10 +106,21 @@ const PopNewCard = () => {
     setError("");
   };
 
+  const handleChangeDate = (date) => {
+    setSelectedDate(date);
+    setErrors({ ...errors, date: false });
+    setError("");
+  };
+
   const handleAddNewTask = async (e) => {
     e.preventDefault();
+
     if (!user || !user.token) {
       setError("Пользователь не авторизован");
+      return;
+    }
+
+    if (!validateForm()) {
       return;
     }
 
@@ -103,17 +131,10 @@ const PopNewCard = () => {
       userId: user._id,
     };
 
-    // if (!validateForm()) {
-    //   return;
-    // }
     try {
       if (dataToSend) {
-        console.log("dataToSend", dataToSend);
-        console.log("Перед вызовом addNewTask:", { token: user?.token, user });
-        await addNewTask({ task: dataToSend, user }); // вызов пост-запроса
-        const updatedTasks = await fetchTasks({ token: user.token });
-        console.log("Перед вызовом addNewTask:", { token: user?.token, user });
-        setTasks(updatedTasks);
+        const updatedTasks = await addNewTask({ task: dataToSend, user });
+        console.log("updatedTasks", updatedTasks);
         navigate("/");
       }
     } catch (err) {
@@ -130,14 +151,11 @@ const PopNewCard = () => {
             <PopNewCardTtl>Создание задачи</PopNewCardTtl>
             <LinkClose to="/">&#10006;</LinkClose>
             <PopNewCardWrap>
-              <PopNewCardForm
-                // onSubmit={handleAddNewTask}
-                id="formNewCard"
-                action="#"
-              >
+              <PopNewCardForm id="formNewCard" action="#">
                 <FormNewBlock>
                   <SLabel htmlFor="formTitle">Название задачи</SLabel>
                   <Input
+                    error={errors.title}
                     newCardInput="newCardInput"
                     type="text"
                     name="title"
@@ -151,6 +169,7 @@ const PopNewCard = () => {
                 <FormNewBlock>
                   <SLabel htmlFor="textArea">Описание задачи</SLabel>
                   <TextArea
+                    error={errors.description}
                     newCardTextArea="newCardTextArea"
                     name="description"
                     id="textArea"
@@ -161,8 +180,9 @@ const PopNewCard = () => {
                 </FormNewBlock>
               </PopNewCardForm>
               <Calendar
-                onDateChange={(date) => setSelectedDate(date)}
+                onDateChange={handleChangeDate}
                 isEditCalendar={true}
+                error={errors.date}
               >
                 Выберите срок исполнения.
               </Calendar>
@@ -176,10 +196,17 @@ const PopNewCard = () => {
                     $themePopCard="themePopCard"
                     $themePopNewCard="themePopNewCard"
                     $activeCategory={theme === selectedTheme}
-                    $color={themesBgColors[theme]}
+                    $color={
+                      isDark ? themesColors[theme] : themesBgColors[theme]
+                    }
                     onClick={() => handleSelectedTheme(theme)}
                   >
-                    <ThemeCategoryCard key={theme} $color={themesColors[theme]}>
+                    <ThemeCategoryCard
+                      key={theme}
+                      $color={
+                        isDark ? themesBgColors[theme] : themesColors[theme]
+                      }
+                    >
                       {theme}
                     </ThemeCategoryCard>
                   </ThemeCard>

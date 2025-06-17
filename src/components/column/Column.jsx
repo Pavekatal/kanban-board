@@ -1,41 +1,26 @@
-// import { cardList } from "../data.js";
 import Card from "../card/Card";
 import { ColumnTitle } from "./ColumnTitle.styled.js";
 import { Cards } from "./Cards.styled.js";
 import { ColumnMain } from "./ColumnMain.styled.js";
-import { useContext } from "react";
-import { TasksContext } from "../../context/TasksContext.js";
 
-const Column = ({ title, column }) => {
-  const { tasks } = useContext(TasksContext);
-  const validStatus = [
-    "без статуса",
-    "нужно сделать",
-    "в работе",
-    "тестирование",
-    "готово",
-  ];
-
-  const statusCheck = tasks.map((task) => {
-    if (!validStatus.includes(task.status.toLowerCase())) {
-      return { ...task, status: "без статуса" };
-    }
-    return task;
-  });
-
+const Column = ({ title, tasks, loading }) => {
   return (
-    <ColumnMain $column={column}>
-      <ColumnTitle>
-        <p>{title}</p>
-      </ColumnTitle>
-      <Cards>
-        {statusCheck
-          .filter((card) => card.status.toLowerCase() === title.toLowerCase())
-          .map((card, index) => (
-            <Card card={card} key={index} />
-          ))}
-      </Cards>
-    </ColumnMain>
+    <>
+      <ColumnMain>
+        <ColumnTitle>
+          <p>{title}</p>
+        </ColumnTitle>
+        <Cards>
+          {loading
+            ? Array.from({ length: 8 }).map((_, index) => (
+                <Card card={undefined} loading={true} key={index} />
+              ))
+            : tasks.map((card) => (
+                <Card card={card} loading={false} key={card._id} />
+              ))}
+        </Cards>
+      </ColumnMain>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { SLabel, STextArea } from "./SInput.syled";
+import { STextArea } from "./SInput.syled";
 
 const TextArea = ({
   type = "text",
@@ -11,6 +11,8 @@ const TextArea = ({
   description = "",
   newCardTextArea,
   onChange,
+  $isDark,
+  $isEditTask,
 }) => {
   return (
     <STextArea
@@ -24,6 +26,8 @@ const TextArea = ({
       $description={description}
       $newCardTextArea={newCardTextArea}
       onChange={onChange}
+      $isDark={$isDark}
+      $isEditTask={$isEditTask}
     ></STextArea>
   );
 };

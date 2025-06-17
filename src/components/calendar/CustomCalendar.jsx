@@ -1,21 +1,73 @@
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // Основные стили
 const CalendarWrapper = styled.div`
   width: 182px;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 660px) {
+    max-width: 340px;
+    width: 100%;
+
+    .date-create {
+      display: none;
+      margin-bottom: 7px;
+    }
+  }
+
+  @media screen and (max-width: 495px) {
+    ${(props) =>
+      props.$newCard &&
+      css`
+        width: 100%;
+      `}
+  }
 `;
 
 const CalendarTitle = styled.p`
   margin-bottom: 14px;
   padding: 0 7px;
+  color: ${({ theme }) => theme.colorSubTtl}; //#000;
   font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+`;
+
+const CalendarBlock = styled.div`
+  display: block;
+  border-radius: 8px;
+  border: ${(props) => (!props.$error ? "none" : "0.7px solid rgb(255, 0, 0)")};
+`;
+
+const CalendarMonth = styled.div`
+  color: #94a6be;
+  font-size: 14px;
+  line-height: 25px;
   font-weight: 600;
 `;
 
 const CalendarPeriod = styled.div`
   padding: 0 7px;
+  margin-top: 14px;
+
+  @media screen and (max-width: 660px) {
+    padding: 0;
+  }
+`;
+
+const CalendarP = styled.p`
+  color: #94a6be;
+  font-size: 10px;
+  line-height: 1;
+
+  span {
+    color: ${({ theme }) => theme.colorCalendarPSpan}; //#000000;
+  }
+
+  @media screen and (max-width: 660px) {
+    font-size: 14px;
+  }
 `;
 
 const CalendarContent = styled.div`
@@ -41,6 +93,10 @@ const DayName = styled.div`
   &.-weekend- {
     font-weight: bold;
   }
+
+  @media screen and (max-width: 660px) {
+    font-size: 14px;
+  }
 `;
 
 const CellsContainer = styled.div`
@@ -48,6 +104,14 @@ const CellsContainer = styled.div`
   height: auto;
   display: flex;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 660px) {
+    width: 344px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 `;
 
 const Cell = styled.div.withConfig({
@@ -61,6 +125,7 @@ const Cell = styled.div.withConfig({
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: nowrap;
   font-size: 10px;
   line-height: 1;
   letter-spacing: -0.2px;
@@ -73,11 +138,16 @@ const Cell = styled.div.withConfig({
 
   &:hover {
     color: #94a6be;
-    background-color: #eaeef6;
+    background-color: ${({ theme }) => theme.bgcHoverCellDay};
+  }
+
+  @media screen and (max-width: 660px) {
+    width: 42px;
+    height: 42px;
+    font-size: 14px;
   }
 `;
 
-// Стиль стрелок навигации
 const Nav = styled.div`
   display: flex;
   align-items: center;
@@ -85,6 +155,16 @@ const Nav = styled.div`
   width: 100%;
   padding: 0px;
   margin-top: 14px;
+
+  @media screen and (max-width: 660px) {
+    padding: 0;
+  }
+`;
+
+const NavActions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const NavAction = styled.div`
@@ -101,8 +181,17 @@ const NavAction = styled.div`
 `;
 
 // Основной компонент
-const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 4));
+const Calendar = ({
+  children,
+  deadline,
+  onDateChange,
+  isEditCalendar,
+  error = false,
+}) => {
+  const [currentMonth, setCurrentMonth] = useState(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth());
+  });
   const [selectedDate, setSelectedDate] = useState(null);
 
   // Получение данных о текущем дне
@@ -188,12 +277,12 @@ const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
   const monthYearStr = currentMonth.toLocaleString("ru-RU", options);
 
   return (
-    <CalendarWrapper className="pop-new-card__calendar calendar">
-      <CalendarTitle className="calendar__ttl subttl">Даты</CalendarTitle>
-      <div className="calendar__block">
-        <Nav className="calendar__nav">
-          <div className="calendar__month">{monthYearStr}</div>
-          <div className="nav__actions">
+    <CalendarWrapper>
+      <CalendarTitle>Даты</CalendarTitle>
+      <CalendarBlock $error={error}>
+        <Nav>
+          <CalendarMonth>{monthYearStr}</CalendarMonth>
+          <NavActions>
             <NavAction
               className="nav__action"
               onClick={handlePrevMonth}
@@ -208,11 +297,7 @@ const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
                 <path d="M5.72945 1.95273C6.09018 1.62041 6.09018 1.0833 5.72945 0.750969C5.36622 0.416344 4.7754 0.416344 4.41218 0.750969L0.528487 4.32883C-0.176162 4.97799 -0.176162 6.02201 0.528487 6.67117L4.41217 10.249C4.7754 10.5837 5.36622 10.5837 5.72945 10.249C6.09018 9.9167 6.09018 9.37959 5.72945 9.04727L1.87897 5.5L5.72945 1.95273Z" />
               </svg>
             </NavAction>
-            <NavAction
-              className="nav__action"
-              onClick={handleNextMonth}
-              data-action="next"
-            >
+            <NavAction onClick={handleNextMonth} data-action="next">
               {/* SVG стрелка вправо */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -223,11 +308,11 @@ const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
                 <path d="M0.27055 9.04727C-0.0901833 9.37959 -0.0901832 9.9167 0.27055 10.249C0.633779 10.5837 1.2246 10.5837 1.58783 10.249L5.47151 6.67117C6.17616 6.02201 6.17616 4.97799 5.47151 4.32883L1.58782 0.75097C1.2246 0.416344 0.633778 0.416344 0.270549 0.75097C-0.0901831 1.0833 -0.090184 1.62041 0.270549 1.95273L4.12103 5.5L0.27055 9.04727Z" />
               </svg>
             </NavAction>
-          </div>
+          </NavActions>
         </Nav>
 
         {/* Названия дней недели */}
-        <DaysNames className="calendar__days-names">
+        <DaysNames>
           <DayName>пн</DayName>
           <DayName>вт</DayName>
           <DayName>ср</DayName>
@@ -238,7 +323,7 @@ const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
         </DaysNames>
 
         {/* Ячейки с датами */}
-        <CellsContainer className="calendar__cells">
+        <CellsContainer>
           {days.map((day, i) => (
             <Cell
               key={i}
@@ -248,12 +333,7 @@ const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
                 day.date.toDateString() === selectedDate.toDateString()
               }
               $isToday={isSameDay(day.date, today)}
-              // isToday={day.date.toDateString() === new Date().toDateString()}
               isSelected={selectedDate && isSameDay(day.date, selectedDate)}
-              // isSelected={
-              //   selectedDate &&
-              //   day.date.toDateString() === selectedDate.toDateString()
-              // }
               onClick={() => {
                 if (isEditCalendar) {
                   handleDateClick(day);
@@ -267,8 +347,8 @@ const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
 
         {/* Срок исполнения */}
         {selectedDate ? (
-          <div className="calendar__period">
-            <p className="calendar__p date-end">
+          <CalendarPeriod>
+            <CalendarP>
               Срок исполнения:{" "}
               <span className="date-control">
                 {selectedDate.toLocaleString("ru-RU", {
@@ -277,17 +357,17 @@ const Calendar = ({ children, deadline, onDateChange, isEditCalendar }) => {
                   year: "2-digit",
                 })}
               </span>
-            </p>
-          </div>
+            </CalendarP>
+          </CalendarPeriod>
         ) : (
-          <div className="calendar__period">
-            <p className="calendar__p date-end">
+          <CalendarPeriod>
+            <CalendarP>
               {children}
               <span>{deadline}</span>
-            </p>
-          </div>
+            </CalendarP>
+          </CalendarPeriod>
         )}
-      </div>
+      </CalendarBlock>
     </CalendarWrapper>
   );
 };

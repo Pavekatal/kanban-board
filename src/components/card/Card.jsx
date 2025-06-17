@@ -10,12 +10,12 @@ import { CardTitle } from "./CardTitle.styled";
 import { ThemeCard } from "./ThemeCard.styled";
 import { ThemeCategoryCard } from "./themeCategoryCard.styled";
 import { formattedDate } from "../../utils/formattedDate";
-import { useContext } from "react";
-import { TasksContext } from "../../context/TasksContext";
 import LoaderCard from "../loading/LoaderCard";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
-const Card = ({ card }) => {
-  const { loading } = useContext(TasksContext);
+const Card = ({ card, loading }) => {
+  const { isDark } = useContext(ThemeContext);
 
   return (
     <CardItem>
@@ -24,8 +24,19 @@ const Card = ({ card }) => {
       ) : (
         <CardsCard $card={card}>
           <CardGroup>
-            <ThemeCard $color={themesBgColors[card?.topic]} $activeCategory>
-              <ThemeCategoryCard $color={themesColors[card?.topic]}>
+            <ThemeCard
+              $color={
+                isDark ? themesColors[card?.topic] : themesBgColors[card?.topic]
+              }
+              $activeCategory
+            >
+              <ThemeCategoryCard
+                $color={
+                  isDark
+                    ? themesBgColors[card?.topic]
+                    : themesColors[card?.topic]
+                }
+              >
                 {card.topic}
               </ThemeCategoryCard>
             </ThemeCard>
@@ -36,7 +47,6 @@ const Card = ({ card }) => {
                 <div></div>
               </CardBtn>
             </Link>
-            {/* <a href="#popBrowse" target="_self"></a> */}
           </CardGroup>
           <CardContent>
             <a href="" target="_blank">

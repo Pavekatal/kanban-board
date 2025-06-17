@@ -13,9 +13,9 @@ function AppRoutes() {
     <Routes>
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<MainPage />}>
-          <Route path="/card/add" element={<NewCardPage />} />
-          <Route path="/card/:id" element={<CardPage />} />
-          <Route path="/exit" element={<ExitPage />} />
+          <Route path="card/add" element={<NewCardPage />} />
+          <Route path="card/:id" element={<CardPage />} />
+          <Route path="exit" element={<ExitPage />} />
         </Route>
       </Route>
       <Route path="/login" element={<SignInPage />} />

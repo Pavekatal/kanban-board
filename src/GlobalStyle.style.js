@@ -19,7 +19,7 @@ a:visited {
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
   outline: none;
 }
 
@@ -43,7 +43,7 @@ body {
   width: 100%;
   height: 100%;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  color: #000000;
-  background-color: #f1f1f1;
+  color:${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.bgcWrapper};
 }
 `;

@@ -97,7 +97,7 @@ const AuthForm = ({ isSignUp }) => {
             </AuthFormModalTtl>
             <AuthFormLogin
               onSubmit={handleSubmit}
-              // id={isSignUp ? "formLogUp" : "formLogIn"}
+              id={isSignUp ? "formLogUp" : "formLogIn"}
             >
               {isSignUp && (
                 <Input
@@ -127,10 +127,10 @@ const AuthForm = ({ isSignUp }) => {
                 placeholder="Пароль"
                 value={userData.password}
                 onChange={handleChange}
+                autoComplete
               />
               <FillingError>{error}</FillingError>
               <BlueButton
-                // onClick={handleSubmit}
                 id="btnEnter"
                 variant={isSignUp ? "signupEnt" : "enter"}
               >

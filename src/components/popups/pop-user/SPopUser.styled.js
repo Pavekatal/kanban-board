@@ -7,9 +7,9 @@ export const SPopUser = styled.div`
   width: 213px;
   height: 205px;
   border-radius: 10px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
-  background: #fff;
-  box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21);
+  border: ${({ theme }) => theme.bdHeaderPopUserSet};
+  background: ${({ theme }) => theme.bgHeaderPopUserSet};
+  box-shadow: ${({ theme }) => theme.bShadowHeaderPopUserSet};
   padding: 34px;
   text-align: center;
   z-index: 2;

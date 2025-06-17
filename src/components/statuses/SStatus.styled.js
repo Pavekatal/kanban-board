@@ -5,7 +5,7 @@ export const SStatus = styled.div`
 `;
 
 export const StatusP = styled.p`
-  color: #000;
+  color: ${({ theme }) => theme.colorSubTtl};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -22,11 +22,11 @@ export const StatusThemes = styled.div`
 export const StatusTheme = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  /* color: #94a6be; */
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
-  color: ${(props) => (props.$isActive ? "#fff" : "#94a6be")};
+  color: ${(props) =>
+    props.$isActive ? (props.$isDark ? "#000" : "#ffffff") : "#94a6be"};
   background-color: ${(props) => (props.$isActive ? "#94A6BE" : "transparent")};
 
   p {
@@ -37,16 +37,9 @@ export const StatusTheme = styled.div`
 
   &:hover {
     background: #94a6be;
-    color: #ffffff;
+    color: ${({ theme }) => theme.colorHoverStatus}; //#ffffff;
     cursor: ${(props) => (props.$isEdit ? "pointer" : "auto")};
   }
-
-  /* ${(props) =>
-    props.$gray &&
-    css`
-      background: #94a6be;
-      color: #ffffff;
-    `} */
 
   ${(props) =>
     props.$hide &&
@@ -57,5 +50,5 @@ export const StatusTheme = styled.div`
 
 export const StatusThemeP = styled.p`
   background: #94a6be;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colorHoverStatus};
 `;

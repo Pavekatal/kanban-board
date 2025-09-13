@@ -59,6 +59,7 @@ const AuthForm = ({ isSignUp }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setUserData({
       ...userData,
       [name]: value,
